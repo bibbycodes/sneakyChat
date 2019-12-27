@@ -26,8 +26,6 @@ class App extends Component {
     return body 
   }
 
-
-
   render() { 
     return (  
       
@@ -44,7 +42,7 @@ class App extends Component {
     );
   }
 }
- 
+
 export default App;
 
 
