@@ -14,7 +14,7 @@ const { Client } = require('pg')
 class dbConnection {
   constructor() {
     this.user = process.env.DB_USER;
-    this.db_name = process.env.TEST_DB_NAME;
+    this.db_name = process.env.TEST_DB_NAME || process.env.DB_NAME;
     this.password = process.env.DB_PASS;
     this.port = process.env.DB_PORT;
     this.instance = process.env.DB_INSTANCE;
