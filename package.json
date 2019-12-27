@@ -16,8 +16,10 @@
     "url": "https://github.com/bibbycodes/sneakyChat/issues"
   },
   "dependencies": {
-    "express": "*",
-    "jest": "*"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "pg": "^7.16.0"
   },
   "homepage": "https://github.com/bibbycodes/sneakyChat#readme"
 }
