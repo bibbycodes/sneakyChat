@@ -25,7 +25,6 @@ class App extends Component {
     }
     return body 
   }
-  console.log("Render Return", this.state.data)
 
 
 
