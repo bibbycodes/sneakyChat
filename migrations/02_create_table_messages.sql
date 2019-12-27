@@ -3,4 +3,4 @@ CREATE TABLE messages (
   sender_id INTEGER,
   recipient_id INTEGER,
   created_at TIMESTAMP
-  )
+  );
