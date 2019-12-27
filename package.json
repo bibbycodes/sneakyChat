@@ -1,0 +1,22 @@
+{
+  "name": "sneaky_chat",
+  "version": "1.0.0",
+  "description": "Encrypted Chat app using websockets",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bibbycodes/sneakyChat.git"
+  },
+  "author": "Robert Rosiji-Griffith, Zaira Rasool, Shubinder Virk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bibbycodes/sneakyChat/issues"
+  },
+  "dependencies": {
+    "express" : "*"
+  },
+  "homepage": "https://github.com/bibbycodes/sneakyChat#readme"
+}
