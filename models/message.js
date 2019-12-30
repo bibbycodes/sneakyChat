@@ -24,7 +24,6 @@ class Message {
       RETURNING *;
       `
     )
-    console.log(result.rows)
     return result.rows;
   }
 
