@@ -1,4 +1,5 @@
 const dbConnection = require('../dbConnection')
+process.env.NODE_ENV = "TEST"
 
 describe('dbConnection', () => {
   let db = new dbConnection()

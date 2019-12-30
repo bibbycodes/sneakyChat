@@ -1,25 +1,31 @@
 require('dotenv').config();
 
 const { Client } = require('pg')
-// client.query('SELECT * FROM messages', (err, res) => {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log("connecting")
-//     console.log(res)
-//     client.end()
-//   }
-// })
 
 class dbConnection {
   constructor() {
-    this.user = process.env.DB_USER;
-    this.db_name = process.env.TEST_DB_NAME || process.env.DB_NAME;
     this.password = process.env.DB_PASS;
     this.port = process.env.DB_PORT;
-    this.instance = process.env.DB_INSTANCE;
-    this.db_ip = process.env.DB_IP;
-    this.uri = `postgres://${this.user}:${this.password}@${this.db_ip}:${this.port}/${this.db_name}`;
+
+    if (process.env.NODE_ENV == "TEST"){
+      console.log("testing")
+      this.user = process.env.DB_USER_LOCAL;
+      this.db_name = process.env.TEST_DB_NAME;
+      this.db_ip = "localhost"
+      this.uri = `postgres://${this.user}@${this.db_ip}:${this.port}/${this.db_name}`;
+    } else if (process.env.NODE_ENV == "DEVELOPMENT") {
+      console.log("development")
+      this.user = process.env.DB_USER_LOCAL;
+      this.db_name = process.env.DB_NAME;
+      this.db_ip = "localhost"
+      this.uri = `postgres://${this.user}@${this.db_ip}:${this.port}/${this.db_name}`;
+    } else if (process.env.NODE_ENV == "PRODUCTION") {
+      console.log("production")
+      this.user = process.env.DB_USER;
+      this.db_name = process.env.DB_NAME;
+      this.db_ip = process.env.DB_IP;
+      this.uri = `postgres://${this.user}:${this.password}@${this.db_ip}:${this.port}/${this.db_name}`;
+    }
     this.client = new Client(this.uri)
   }
 
@@ -29,6 +35,10 @@ class dbConnection {
 
   close() {
     this.client.end()
+  }
+
+  query(query) {
+    this.client.query(query)
   }
 
   async findMessageById(id) {
