@@ -31,38 +31,16 @@ class dbConnection {
 
   start() {
     this.client.connect()
+    console.log("starting db")
   }
 
   close() {
     this.client.end()
+    console.log("closing db")
   }
 
-  query(query) {
-    this.client.query(query)
-  }
-
-  async findMessageById(id) {
-    let result = await this.client.query(
-      `SELECT * FROM messages WHERE id=${id}`
-    )
-    return result.rows[0].body
-  }
-
-  async getConvo(user1, user2) {
-    let sent = await this.client.query(
-      `SELECT * FROM messages WHERE sender_id=${user1} AND recipient_id=${user2}`
-    )
-    let received = await this.client.query(
-      `SELECT * FROM messages WHERE sender_id=${user2} AND recipient_id=${user1}`
-    )
-
-    sent = sent.rows
-    received = received.rows
-
-    let messages = (sent.concat(received))
-    messages.sort((a, b) => (a.created_at > b.created_at) ? 1 : -1)
-
-    return messages
+  async query(query) {
+    return await this.client.query(query)
   }
 }
 
