@@ -28,11 +28,13 @@ class Message {
   }
 
   async getConvo(id) {
+    console.log("Getting Convo")
     let conversation = await this.db.query(`
     SELECT * FROM messages
     WHERE conversation_id=${id}
     ORDER BY created_at ASC;
     `)
+    console.log(conversation.rows[0])
     return conversation.rows
   }
 }
