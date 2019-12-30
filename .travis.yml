@@ -6,6 +6,7 @@ env:
   - DB_USER=postgres
   - TEST_DB_NAME=sneakychattest
   - DB_PORT=5432
+  - NODE_ENV=TEST
 
 services: 
   - postgresql

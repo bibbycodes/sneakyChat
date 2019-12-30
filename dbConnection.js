@@ -26,6 +26,7 @@ class dbConnection {
       this.db_ip = process.env.DB_IP;
       this.uri = `postgres://${this.user}:${this.password}@${this.db_ip}:${this.port}/${this.db_name}`;
     }
+    console.log(this.uri)
     this.client = new Client(this.uri)
   }
 
