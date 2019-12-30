@@ -15,6 +15,5 @@ before_script:
   - psql -d sneakychattest -f db/migrations/02_create_table_messages.sql -U postgres
   - psql -d sneakychattest -f db/migrations/03_insert_into_messages.sql -U postgres
 
-
 # before_install:
 #   -npm install --ignore-scripts
