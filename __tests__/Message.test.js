@@ -4,8 +4,8 @@ process.env.NODE_ENV = "TEST"
 
 describe('Message', () => {
   let helper = new Helper()
-  let user = { name: "Robert", id: 1 }
-  let message = new Message(user, "Hello", 1)
+  let sender = { name: "Robert", id: 1 }
+  let message = new Message(sender, "Hi", 1)
 
   beforeAll(async () => {
     await helper.db.start()
@@ -23,13 +23,13 @@ describe('Message', () => {
   describe('#find', () => {
     it('returns the body of a given message', async () => {
       let result = await message.find(1)
-      expect(result.rows[0].body).toEqual("Hey you!")
+      expect(result[0].body).toEqual("Hey you!")
     })
   })
 
-  describe('#getConversation', () => {
+  describe('#getConvo', () => {
     it('returns an array of messages between two users', async () => {
-      let result = await message.getConvo(1, 2)
+      let result = await message.getConvo(1)
       expect(result[0].body).toEqual("Hey you!")
       expect(result[1].body).toEqual("Hey Girl!")
       expect(result[2].body).toEqual("Love You!")
@@ -40,7 +40,7 @@ describe('Message', () => {
     it('adds a message into the database', async () => {
       await message.create()
       result = await message.find(4)
-      expect(result[3].body).toEqual("Hello")
+      expect(result[0].body).toEqual("Hi")
     })
   })
 })
