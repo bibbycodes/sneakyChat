@@ -7,17 +7,56 @@ class Message extends Component {
     super(props);
     this.state = {
       message: " ",
-      messages:[]
-
+      user_id : 1,
+      messages: [
+        {
+          "body" : "Hello!",
+          "userId" : "1",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "Hi!",
+          "userId" : "2",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "How are you??",
+          "userId" : "1",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "How can you slap?!",
+          "userId" : "2",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "You are a blood bastard!",
+          "userId" : "1",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "Fucking Fuck!",
+          "userId" : "2",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "Fucke you!",
+          "userId" : "1",
+          "conversationId" : "1"
+        },
+        {
+          "body" : "Bye!!",
+          "userId" : "2",
+          "conversationId" : "1"
+        }
+      ]
     };
   }
 
   handleSubmit = event => {
     event.preventDefault();
     const data = this.state.message;
-
     let msg = this.state.messages
-    
     msg.push(data)
 
     this.setState({
@@ -44,7 +83,12 @@ class Message extends Component {
       <div>
     <h1>Sneaky Chat</h1>
 
-        <h1>{this.state.messages.map((item,i) => <li key={i}>{item}</li>)}</h1>
+        <h1>{this.state.messages.map((item,i) => (
+        <div>
+        <p key={i}>{item["body"]}, {item["userId"]}</p>
+        
+        </div>
+        ))}</h1>
 
         <label>Enter Message</label>
         <p>Your Message is: {message}</p>
