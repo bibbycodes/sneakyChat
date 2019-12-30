@@ -2,5 +2,19 @@ language: node_js
 node_js:
   - "8"
 
+env:
+  - DB_USER=postgres
+  - TEST_DB_NAME=sneakychattest
+  - DB_PORT=5432
+
+services: 
+  - postgresql
+
+before_script:
+  - psql -c 'create database sneakychattest;' -U postgres
+  - psql -d sneakychattest -f db/migrations/02_create_table_messages.sql -U postgres
+  - psql -d sneakychattest -f db/migrations/03_insert_into_messages.sql -U postgres
+
+
 # before_install:
 #   -npm install --ignore-scripts
