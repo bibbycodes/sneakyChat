@@ -14,10 +14,9 @@ app.get('/express_backend', (req, res) => {
 app.get('/conversation/:id', async (req, res) => {
   let id = req.params.id
   let db = new dbconn()
-  console.log(db.db_name)
-  db.start()
-  db.query(`SELECT * FROM messages WHERE conversation_id=${id}`).then(result => {
-    res.status(200).send({ conversation: result.rows })
-    console.log(result)
-  })
+  await db.start()
+  result = await db.query(`SELECT * FROM messages WHERE conversation_id=${id}`)
+  res.status(200).json({ conversation: result.rows })
 })
+  
+// })
