@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Axios from 'axios'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient();
 // import Navbar from "./Component/navbar";
 
 
@@ -49,6 +51,7 @@ class Conversation extends Component {
   render() {
     const { message } = this.state;
     return (
+    
     <div>
       <h1>Sneaky Chat</h1>
 
