@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Axios from 'axios'
 // import Navbar from "./Component/navbar";
 
 
@@ -8,49 +9,15 @@ class Message extends Component {
     this.state = {
       message: " ",
       user_id : 1,
-      messages: [
-        {
-          "body" : "Hello!",
-          "userId" : "1",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "Hi!",
-          "userId" : "2",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "How are you??",
-          "userId" : "1",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "How can you slap?!",
-          "userId" : "2",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "You are a blood bastard!",
-          "userId" : "1",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "Fucking Fuck!",
-          "userId" : "2",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "Fucke you!",
-          "userId" : "1",
-          "conversationId" : "1"
-        },
-        {
-          "body" : "Bye!!",
-          "userId" : "2",
-          "conversationId" : "1"
-        }
-      ]
+      messages: []
     };
+  }
+
+  componentDidMount() {
+    Axios.get('/conversation/1')
+      .then(res => {
+        this.setState({messages : res.data.conversation})
+      })
   }
 
   handleSubmit = event => {
@@ -58,7 +25,6 @@ class Message extends Component {
     const data = this.state.message;
     let msg = this.state.messages
     msg.push(data)
-
     this.setState({
         messages: msg
     });
