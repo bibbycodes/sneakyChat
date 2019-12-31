@@ -11,10 +11,13 @@ app.get('/express_backend', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
-app.get('/messages', async (req, res) => {
-  let db = new dbconn(1, "Hello", 1)
-  let messages = await db.query("SELECT * FROM messages")
-  console.log(messages)
-  // res.json({ trip: trip.toObject({ getters: true }) });
-  res.json({ messages: messages })
+app.get('/conversation/:id', async (req, res) => {
+  let id = req.params.id
+  let db = new dbconn()
+  console.log(db.db_name)
+  db.start()
+  db.query(`SELECT * FROM messages WHERE conversation_id=${id}`).then(result => {
+    res.status(200).send({ conversation: result.rows })
+    console.log(result)
+  })
 })
