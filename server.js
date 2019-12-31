@@ -21,6 +21,7 @@ app.get('/conversation/:id', async (req, res) => {
 })
 
 app.post('/messages/', async (req, res) => {
+  console.log("Hit!")
   let query = req.query
   let message = new Message(parseInt(query.senderId), query.body, parseInt(query.conversationId))
   message.create()
