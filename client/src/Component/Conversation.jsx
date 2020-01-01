@@ -18,22 +18,21 @@ class Conversation extends Component {
   componentDidMount() {
     Axios.get('/conversation/1')
       .then(res => {
-        this.setState({conversation : res.data.conversation})
-        console.log(this.state.conversation)
+        this.setState({messages : res.data.conversation})
       })
 
-      socket.on('new message', data => {
-        this.handleIncomingMessage(data)
-      })
+    socket.on('new message', data => {
+      this.handleIncomingMessage(data)
+    })
   }
 
   handleSubmit = event => {
     event.preventDefault();
     const data = this.state.new_message;
-    let conversation = this.state.conversation
-    conversation.push(data)
+    let allMessages = this.state.messages
+    allMessages.push(data)
     this.setState({
-        conversation: conversation
+        messages: allMessages
     });
 
     let message_obj = {
@@ -41,7 +40,6 @@ class Conversation extends Component {
       senderId : this.state.userId,
       conversationId : this.state.conversationId
     }
-
     socket.emit('send message', message_obj)
   };
 
@@ -51,9 +49,9 @@ class Conversation extends Component {
   };
 
   handleIncomingMessage = message => {
-    let conversation = this.state.conversation
-    conversation.push(message)
-    this.setState({conversation : conversation})
+    let allMessages = this.state.messages
+    allMessages.push(message)
+    this.setState({messages : allMessages})
   }
 
   render() {
@@ -66,8 +64,8 @@ class Conversation extends Component {
       {this.state.conversation.map((message, i) => (
         <p key={message.id}>{message.body}</p>
       ))}
-      {/* End conversation */}
 
+      {/* End Messages */}
       {/* Form */}
       <form onSubmit={this.handleSubmit}>
         <p>
