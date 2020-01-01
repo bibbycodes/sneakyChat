@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Axios from 'axios'
 import socketIOClient from 'socket.io-client'
 const socket = socketIOClient();
-// import Navbar from "./Component/navbar";
 
 
 class Conversation extends Component {
@@ -12,7 +11,7 @@ class Conversation extends Component {
       new_message: " ",
       conversationId: 1,
       userId : 1,
-      messages: []
+      conversation: []
     };
   }
 
@@ -58,14 +57,14 @@ class Conversation extends Component {
   render() {
     const { message } = this.state;
     return (
-    
     <div>
       <h1>Sneaky Chat</h1>
-
-      {/* Messages */}
-      {this.state.messages.map((message, i) => (
+      
+      {/* conversation */}
+      {this.state.conversation.map((message, i) => (
         <p key={message.id}>{message.body}</p>
       ))}
+
       {/* End Messages */}
       {/* Form */}
       <form onSubmit={this.handleSubmit}>
@@ -78,9 +77,7 @@ class Conversation extends Component {
             value={message}
           />
         </p>
-        <p>
-          <button>Send Message</button>
-        </p>
+        <button>Send Message</button>
       </form>
       {/* End Form  */}
     </div>

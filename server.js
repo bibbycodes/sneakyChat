@@ -31,10 +31,6 @@ app.post('/messages/', async (req, res) => {
   res.status(200).json({"status" : "200"})
 })
 
-app.get("/", function(req, res){
-  res.sendFile(__dirname + '/index.html')
-})
-
 io.on('connection', function(socket){
   connections.push(socket)
   console.log("Connected to sockets!")
@@ -44,6 +40,5 @@ io.on('connection', function(socket){
     message.create()
     io.sockets.emit('new message', data)
   })
-
   socket.on("disconnect", () => console.log("Client disconnected"));
 })
