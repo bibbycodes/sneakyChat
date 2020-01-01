@@ -7,8 +7,8 @@ services:
 
 before_script:
   - psql -c 'create database sneakychattest;' -U postgres
-  - psql -d sneakychattest -f db/migrations/02_create_table_messages.sql -U postgres
-  - psql -d sneakychattest -f db/migrations/03_insert_into_messages.sql -U postgres
+  - psql -d sneakychattest -f db/migrations/message/02_create_table_messages.sql -U postgres
+  - psql -d sneakychattest -f db/migrations/message/03_insert_into_messages.sql -U postgres
 
 after_script:
   - psql -c 'drop database sneakychattest;' -U postgres
