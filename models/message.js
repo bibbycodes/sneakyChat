@@ -30,7 +30,7 @@ class Message {
       RETURNING *;
       `
     )
-    console.log(result.rows)
+
     this.id = result.rows[0].id
     await db.close()
     return result.rows;
