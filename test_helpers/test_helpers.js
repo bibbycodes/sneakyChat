@@ -5,8 +5,8 @@ cwd = process.cwd()
 class test_helper {
   constructor() {
     this.db = new dbConnection()
-    this.insertMessages = fs.readFileSync(`${cwd}/db/migrations/03_insert_into_messages.sql`).toString()
-    this.createMessagesTable = fs.readFileSync(`${cwd}/db/migrations/02_create_table_messages.sql`).toString()
+    this.insertMessages = fs.readFileSync(`${cwd}/db/migrations/message/03_insert_into_messages.sql`).toString()
+    this.createMessagesTable = fs.readFileSync(`${cwd}/db/migrations/message/02_create_table_messages.sql`).toString()
   }
 
   async populateMessagesTable() {
