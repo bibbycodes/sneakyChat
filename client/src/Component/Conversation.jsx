@@ -20,33 +20,40 @@ class Conversation extends Component {
     Axios.get('/conversation/1')
       .then(res => {
         this.setState({messages : res.data.conversation})
-        console.log(this.state.messages)
       })
+
+    socket.on('new message', data => {
+      this.handleIncomingMessage(data)
+    })
   }
 
   handleSubmit = event => {
     event.preventDefault();
     const data = this.state.new_message;
-    console.log(data)
     let allMessages = this.state.messages
     allMessages.push(data)
     this.setState({
         messages: allMessages
     });
-    
-    let queryString = `/messages?body=${data}&senderId=${this.state.userId}&conversationId=${this.state.conversationId}`
-    Axios.post(queryString)
-    .then(res => {
-      console.log("Sent")
-    });
 
+    let message_obj = {
+      body: this.state.new_message,
+      senderId : this.state.userId,
+      conversationId : this.state.conversationId
+    }
+    socket.emit('send message', message_obj)
   };
 
   handleInputChange = event => {
     event.preventDefault();
-    console.log("event : ", event.target.value)
     this.setState({new_message: event.target.value});
   };
+
+  handleIncomingMessage = message => {
+    let allMessages = this.state.messages
+    allMessages.push(message)
+    this.setState({messages : allMessages})
+  }
 
   render() {
     const { message } = this.state;

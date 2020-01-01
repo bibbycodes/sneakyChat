@@ -25,7 +25,6 @@ app.get('/conversation/:id', async (req, res) => {
 })
 
 app.post('/messages/', async (req, res) => {
-  console.log("Hit!")
   let query = req.query
   let message = new Message(parseInt(query.senderId), query.body, parseInt(query.conversationId))
   message.create()
@@ -39,6 +38,12 @@ app.get("/", function(req, res){
 io.on('connection', function(socket){
   connections.push(socket)
   console.log("Connected to sockets!")
+
+  socket.on('send message', function(data) {
+    let message = new Message(parseInt(data.senderId), data.body, parseInt(data.conversationId))
+    message.create()
+    io.sockets.emit('new message', data)
+  })
 
   socket.on("disconnect", () => console.log("Client disconnected"));
 })

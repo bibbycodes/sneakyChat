@@ -5,19 +5,19 @@ process.env.NODE_ENV = "TEST"
 describe('Message', () => {
   let helper = new Helper()
   let sender = { name: "Robert", id: 1 }
-  let message = new Message(sender, "Hi", 1)
+  let message = new Message(sender.id, "Hi", 1)
 
   beforeAll(async () => {
     await helper.db.start()
-    await message.db.start()
+    // await message.db.start()
     await helper.createTableMessages()
     await helper.populateMessagesTable()
   })
 
   afterAll(async () => {
-    message.db.close()
-      .then(() => helper.dropTable('messages'))
-      .then(() => helper.db.close())
+    // await message.db.close()
+    await helper.dropTable('messages')
+    await helper.db.close()
   })
 
   describe('#find', () => {
