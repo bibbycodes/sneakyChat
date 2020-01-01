@@ -18,7 +18,7 @@ class Conversation extends Component {
   componentDidMount() {
     Axios.get('/conversation/1')
       .then(res => {
-        this.setState({messages : res.data.conversation})
+        this.setState({conversation : res.data.conversation})
       })
 
     socket.on('new message', data => {
@@ -29,10 +29,10 @@ class Conversation extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const data = this.state.new_message;
-    let allMessages = this.state.messages
+    let allMessages = this.state.conversation
     allMessages.push(data)
     this.setState({
-        messages: allMessages
+        conversation: allMessages
     });
 
     let message_obj = {
@@ -49,9 +49,9 @@ class Conversation extends Component {
   };
 
   handleIncomingMessage = message => {
-    let allMessages = this.state.messages
+    let allMessages = this.state.conversation
     allMessages.push(message)
-    this.setState({messages : allMessages})
+    this.setState({conversation : allMessages})
   }
 
   render() {
