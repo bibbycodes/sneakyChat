@@ -32,13 +32,15 @@ app.post('/messages/', async (req, res) => {
   res.status(200).json({"status" : "200"})
 })
 
-app.get("/", function(req, res){
-  res.sendFile(__dirname + '/index.html')
-})
-
 io.on('connection', function(socket){
   connections.push(socket)
   console.log("Connected to sockets!")
 
+  socket.on('send message', function(data) {
+    let message = new Message(parseInt(data.senderId), data.body, parseInt(data.conversationId))
+    message.create()
+    io.sockets.emit('new message', data)
+  })
+  
   socket.on("disconnect", () => console.log("Client disconnected"));
 })
