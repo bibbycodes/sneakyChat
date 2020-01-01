@@ -67,7 +67,6 @@ class Conversation extends Component {
         <p key={message.id}>{message.body}</p>
       ))}
       {/* End Messages */}
-
       {/* Form */}
       <form onSubmit={this.handleSubmit}>
         <p>
