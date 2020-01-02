@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
 const dbconn = require("./dbConnection")
@@ -6,12 +7,14 @@ const Message = require("./models/message")
 const server = require("http").createServer(app)
 const io = require("socket.io").listen(server)
 
+
 let connections = []
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
+console.log(path)
 
 // console.log that your server is up and running
 
