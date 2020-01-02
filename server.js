@@ -8,13 +8,7 @@ const io = require("socket.io").listen(server)
 
 let connections = []
 
-// console.log that your server is up and running
 server.listen(port, () => console.log(`Listening on port ${port}`));
-
-// create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
 
 app.get('/conversation/:id', async (req, res) => {
   let id = req.params.id
