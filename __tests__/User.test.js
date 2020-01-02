@@ -30,6 +30,10 @@ describe('User', () => {
     it('returns true if a user exists in the db', async () => {
       expect(await User.check_exists("test@gmail.com")).toBe(true)
     })
+
+    it('returns false if a user doesnt exist in the db', async () => {
+      expect(await User.check_exists("blahblah@gmail.com")).toBe(false)
+    })
   })
 
   describe('.create', () => {

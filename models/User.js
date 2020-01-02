@@ -25,7 +25,7 @@ class User {
 
   static async check_exists(email) {
     let user = await this.find_by_email(email)
-    return (user[0].email == email)
+    return (!!user[0])
   }
 
   static async create(first, last, email, password) {
