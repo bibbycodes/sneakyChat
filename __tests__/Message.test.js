@@ -2,6 +2,7 @@ const Message = require('../models/Message')
 const Helper = require('../test_helpers/test_helpers')
 process.env.NODE_ENV = "TEST"
 
+
 describe('Message', () => {
   let helper = new Helper()
   let sender = { name: "Robert", id: 1 }
