@@ -15,7 +15,7 @@ class Conversation {
     ORDER BY created_at ASC;
     `);
     await db.close();
-    return conversation.rows;
+    return conversation.rows ;
   }
 }
 
