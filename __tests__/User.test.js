@@ -26,6 +26,18 @@ describe('User', () => {
     })
   })
 
+  describe('.findByEmail', () => {
+    it('returns a users details if the user exists in the db', async () => {
+      let result = await User.findByEmail("test@gmail.com")
+      expect(result[0].email).toEqual("test@gmail.com")
+    })
+
+    it('returns [] if the user does not exist in the db', async () => {
+      let result = await User.findByEmail("doesntexist@gmail.com")
+      expect(result).toEqual([])
+    })
+  })
+
   describe('.check_exists', () => {
     it('returns true if a user exists in the db', async () => {
       expect(await User.check_exists("test@gmail.com")).toBe(true)

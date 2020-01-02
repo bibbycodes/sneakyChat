@@ -15,7 +15,7 @@ class User {
     return result.rows
   }
 
-  static async find_by_email(email) {
+  static async findByEmail(email) {
     let db = new dbConnection()
     await db.start()
     let result = await db.query(`SELECT * FROM users WHERE email='${email}'`)
@@ -24,7 +24,7 @@ class User {
   }
 
   static async check_exists(email) {
-    let user = await this.find_by_email(email)
+    let user = await this.findByEmail(email)
     return (!!user[0])
   }
 
