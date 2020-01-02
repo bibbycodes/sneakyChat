@@ -8,7 +8,7 @@ class Message {
     this.conversationId = conversationId
   }
 
-  async find(id) {
+  static async find(id) {
     let db = new dbConnection()
     await db.start()
     let result = await db.query(

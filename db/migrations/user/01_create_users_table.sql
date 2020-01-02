@@ -1,0 +1,9 @@
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  first VARCHAR(60),
+  last VARCHAR(60),
+  email VARCHAR(255),
+  password VARCHAR(255),
+  is_active BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
