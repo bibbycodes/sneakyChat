@@ -8,6 +8,7 @@ const socket = socketIOClient();
 class Conversation extends Component {
   constructor(props) {
     super(props);
+    this.textinput = React.createRef();
     this.state = {
       new_message: " ",
       conversationId: 1,
@@ -64,8 +65,8 @@ class Conversation extends Component {
 // --------------------
 
 
- refreshPage(event) {
-    event.target.value = " "
+ refreshPage() {
+    window.location.reload(false);
   }
 // --------------------
 
@@ -87,20 +88,21 @@ class Conversation extends Component {
           <input
             type="text"
             placeholder="Enter Message"
+            ref={this.textInput}
             // message="Your Message"
             onChange={this.handleInputChange}
             value={message}
           />
         </p>
-        <button onClick={console.log("Hello World")}>Send Message</button>
+        <button onClick={this.refreshPage}>Click to reload!</button>
         {/* <button>Send Message</button> */}
       </form>
-      {/* End Form  ***/}
+      {/* End Form  */}
     </div>
     );
   }
 }
 
-
+// onClick={this.refreshPage}
 
 export default Conversation;
