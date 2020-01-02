@@ -4,6 +4,7 @@ import socketIOClient from 'socket.io-client'
 const socket = socketIOClient();
 
 
+
 class Conversation extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +32,13 @@ class Conversation extends Component {
     const data = this.state.new_message;
     let allMessages = this.state.conversation
     allMessages.push(data)
+    // this.state.new_message = " "
+
+    console.log(data)
+
     this.setState({
-        conversation: allMessages
+        conversation: allMessages,
+        data: " "
 
     });
 
@@ -55,6 +61,13 @@ class Conversation extends Component {
     allMessages.push(message)
     this.setState({conversation : allMessages})
   }
+// --------------------
+
+
+ refreshPage(event) {
+    event.target.value = " "
+  }
+// --------------------
 
   render() {
     const { message } = this.state;
@@ -74,19 +87,19 @@ class Conversation extends Component {
           <input
             type="text"
             placeholder="Enter Message"
-            message="Your Message"
+            // message="Your Message"
             onChange={this.handleInputChange}
             value={message}
           />
         </p>
-        <button>Send Message</button>
+        <button onClick={console.log("Hello World")}>Send Message</button>
+        {/* <button>Send Message</button> */}
       </form>
       {/* End Form  */}
     </div>
     );
   }
 }
-
 
 
 
