@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const dbconn = require("./dbConnection")
-const Message = require("./models/message")
+const Message = require("./models/Message")
 const server = require("http").createServer(app)
 const io = require("socket.io").listen(server)
 
