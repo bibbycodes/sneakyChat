@@ -8,6 +8,13 @@ const io = require("socket.io").listen(server)
 
 let connections = []
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+// console.log that your server is up and running
+
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/conversation/:id', async (req, res) => {
