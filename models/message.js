@@ -3,7 +3,6 @@ const dbConnection = require('../dbConnection')
 class Message {
   constructor(senderId, body, conversationId) {
     this.id = null
-    // this.db = new dbConnection()
     this.senderId = senderId
     this.body = body
     this.conversationId = conversationId
