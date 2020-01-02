@@ -1,4 +1,4 @@
-const Message = require('../models/Message')
+const Message = require('../models/message')
 const Helper = require('../test_helpers/test_helpers')
 process.env.NODE_ENV = "TEST"
 
