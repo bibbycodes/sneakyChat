@@ -26,6 +26,12 @@ describe('User', () => {
     })
   })
 
+  describe('.check_exists', () => {
+    it('returns true if a user exists in the db', async () => {
+      expect(await User.check_exists("test@gmail.com")).toBe(true)
+    })
+  })
+
   describe('.create', () => {
     it('creates a new user', async () => {
       let user = await User.create('Thomas', 'Griffith', 'tom@gmail.com', 'secret')
@@ -40,6 +46,11 @@ describe('User', () => {
       expect(user[0].email).toEqual('rob@gmail.com')
       expect(user[0].password).toEqual('secret')
     })
+
+    // it('returns "user already exists" if the user already exists', async () => {
+    //   expect(await User.create('Robert', 'Rosiji', 'test@gmail.com', 'secret'))
+    //   .toEqual("user already exists")
+    // })
   })
 
   describe('.authenticate', () => {
