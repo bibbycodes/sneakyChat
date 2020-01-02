@@ -29,6 +29,7 @@ class Message {
       RETURNING *;
       `
     )
+
     this.id = result.rows[0].id
     await db.close()
     return result.rows;

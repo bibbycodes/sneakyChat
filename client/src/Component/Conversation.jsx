@@ -33,8 +33,10 @@ class Conversation extends Component {
     allMessages.push(data)
     this.setState({
         conversation: allMessages
+
     });
 
+    // Test
     let message_obj = {
       body: this.state.new_message,
       senderId : this.state.userId,
