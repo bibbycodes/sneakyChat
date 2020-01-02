@@ -71,13 +71,13 @@ describe('User', () => {
   })
 
   describe('.authenticate', () => {
-    it('returns the user', async () => {
+    it('returns the user after successful authentication', async () => {
       let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
       expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
     })
 
     it('returns undefined if the password is incorrect', async () => {
-      let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
       expect(await User.authenticate('joe@gmail.com', 'wrongpass')).toEqual(undefined)
     })
   })
