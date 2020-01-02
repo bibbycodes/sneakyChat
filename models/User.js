@@ -29,18 +29,22 @@ class User {
   }
 
   static async create(first, last, email, password) {
-    let db = new dbConnection()
-    await db.start()
-    let result = await db.query(`
+    let exists = await this.check_exists(email)
+    if (exists) {
+      return "user already exists"
+    } else {
+      let db = new dbConnection()
+      await db.start()
+      let result = await db.query(`
       INSERT INTO 
       users (first, last, email, password) 
       VALUES ('${first}', '${last}', '${email}', '${password}')
       RETURNING *;
-    `)
-    let rows = result.rows
-    await db.close()
-    let user = new User(rows[0].id, rows[0].first, rows[0].last, rows[0].email)
-    return user
+      `)
+      let rows = result.rows
+      await db.close()
+      return new User(rows[0].id, rows[0].first, rows[0].last, rows[0].email)
+    }
   }
 
   static async authenticate(email, password) {

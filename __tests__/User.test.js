@@ -38,7 +38,8 @@ describe('User', () => {
 
   describe('.create', () => {
     it('creates a new user', async () => {
-      let user = await User.create('Thomas', 'Griffith', 'tom@gmail.com', 'secret')
+      let user = await User.create('Thomas', 'Griffith', 'tomtom@gmail.com', 'secret')
+      console.log("b", user)
       expect(user instanceof User).toBe(true)
     })
 
@@ -51,10 +52,10 @@ describe('User', () => {
       expect(user[0].password).toEqual('secret')
     })
 
-    // it('returns "user already exists" if the user already exists', async () => {
-    //   expect(await User.create('Robert', 'Rosiji', 'test@gmail.com', 'secret'))
-    //   .toEqual("user already exists")
-    // })
+    it('returns "user already exists" if the user already exists', async () => {
+      expect(await User.create('Robert', 'Rosiji', 'test@gmail.com', 'secret'))
+      .toEqual("user already exists")
+    })
   })
 
   describe('.authenticate', () => {
