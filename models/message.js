@@ -3,7 +3,6 @@ const dbConnection = require('../dbConnection')
 class Message {
   constructor(senderId, body, conversationId) {
     this.id = null
-    // this.db = new dbConnection()
     this.senderId = senderId
     this.body = body
     this.conversationId = conversationId
@@ -30,7 +29,6 @@ class Message {
       RETURNING *;
       `
     )
-    console.log(result.rows)
     this.id = result.rows[0].id
     await db.close()
     return result.rows;
