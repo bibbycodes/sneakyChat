@@ -19,10 +19,17 @@ describe('User', () => {
 
   // })
 
-  describe('#find', () => {
+  describe('.find', () => {
     it('retrieves a user from the database', async () => {
       let result = await User.find(1)
       expect(result[0].first).toEqual("Robert")
+    })
+  })
+
+  describe('.create', () => {
+    it('creates a new user', async () => {
+      let user = await User.create()
+      expect(user instanceof User).toBe(true)
     })
   })
 })

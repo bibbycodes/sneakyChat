@@ -12,6 +12,10 @@ class User {
     await db.close()
     return result.rows
   }
+
+  static async create() {
+    return new User
+  }
 }
 
 module.exports = User
