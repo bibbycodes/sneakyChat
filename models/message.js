@@ -3,13 +3,12 @@ const dbConnection = require('../dbConnection')
 class Message {
   constructor(senderId, body, conversationId) {
     this.id = null
-    // this.db = new dbConnection()
     this.senderId = senderId
     this.body = body
     this.conversationId = conversationId
   }
 
-  async find(id) {
+  static async find(id) {
     let db = new dbConnection()
     await db.start()
     let result = await db.query(
@@ -30,7 +29,6 @@ class Message {
       RETURNING *;
       `
     )
-
     this.id = result.rows[0].id
     await db.close()
     return result.rows;

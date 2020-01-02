@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const dbconn = require("./dbConnection")
-const Message = require("./models/message")
+const Message = require("./models/Message")
 const server = require("http").createServer(app)
 const io = require("socket.io").listen(server)
 
@@ -14,12 +14,8 @@ app.get('*', (req, res) {
 });
 
 // console.log that your server is up and running
-server.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/conversation/:id', async (req, res) => {
   let id = req.params.id
