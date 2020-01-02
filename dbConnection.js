@@ -21,7 +21,7 @@ class dbConnection {
       this.user = process.env.DB_USER;
       this.db_name = process.env.DB_NAME;
       this.db_ip = process.env.DB_IP;
-      this.uri = `postgres://${this.user}:${this.password}@${this.db_ip}:${this.port}/${this.db_name}`;
+      this.uri = process.env.DATABASE_URL;
     }
     this.client = new Client(this.uri)
   }
