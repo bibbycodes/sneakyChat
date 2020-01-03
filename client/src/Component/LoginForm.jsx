@@ -9,32 +9,22 @@ class LoginForm extends Component {
       email: "",
       password: ""
     };
-<<<<<<< HEAD
   }
 
+  componentDidMount() {}
+
   handleLogin = event => {
-    console.log(event);
+    event.preventDefault();
+    let credentials = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    Axios.post("/users/authenticate", credentials)
+      .then(res => console.log(res))
+      .catch(err => console.log("Unauthorized", err));
   };
 
   render() {
-    let { email, password } = this.state;
-=======
-  }
-
-  componentDidMount() {
-
-  }
-
-  handleLogin = event => {
-    event.preventDefault()
-    let credentials = {email : this.state.email, password : this.state.password}
-    Axios.post('/users/authenticate', credentials)
-      .then(res => console.log(res))
-      .catch(err => console.log("Unauthorized", err))
-  }
-
-  render() {
->>>>>>> 53e651f5366ee65c055c95b4740a44f853595f31
     return (
       <div>
         <form onSubmit={this.handleLogin}>
@@ -44,8 +34,9 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder="Email"
-<<<<<<< HEAD
-              onChange={(event, value) => this.setState({ email: event.target.value })}
+              onChange={(event, value) =>
+                this.setState({ email: event.target.value })
+              }
             />
           </label>
 
@@ -55,27 +46,25 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder="Password"
-              onChange={(event, value) => this.setState({ password: event.target.value })}
+              onChange={(event, value) =>
+                this.setState({ password: event.target.value })
+              }
             />
-=======
-              onChange={(event) => {
-                this.setState({ email : event.target.value })
+          </label>
+
+          <label>
+            {" "}
+            Password
+            <input
+              type="text"
+              placeholder="Password"
+              onChange={event => {
+                this.setState({ password: event.target.value });
               }}
             />
           </label>
 
-          <label> Password
-            <input 
-            type="text" 
-            placeholder="Password"
-            onChange={(event) => {
-              this.setState({ password : event.target.value })
-            }}
-          />
->>>>>>> 53e651f5366ee65c055c95b4740a44f853595f31
-          </label>
-
-          <input type="submit" value="Login!"/>
+          <input type="submit" value="Login!" />
         </form>
       </div>
     );

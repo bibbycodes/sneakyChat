@@ -6,21 +6,33 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: " ",
-      firstName: " ",
-      lastName: " ",
-      email: " ",
-      password: " "
+      username: null,
+      firstname: null,
+      lastname: null,
+      email: null,
+      password: null
     };
   }
 
-  handleSignup = event => {};
+  handleSignup = event => {
+    event.preventDefault();
+    let credentials = {
+      username: this.state.username,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      password: this.state.password
+    };
+    Axios.post("/users/register", credentials)
+      .then(res => console.log(res))
+      .catch(err => console.log("Unauthorized", err));
+  };
+
   render() {
     return (
       <div>
         <form onSubmit={this.handleSignup}>
           <label>
-
             UserName
             <input
               type="text"
@@ -37,25 +49,23 @@ class SignUp extends Component {
               type="text"
               placeholder="First Name"
               onChange={(event, value) =>
-                this.setState({ firstName: event.target.value })
+                this.setState({ firstname: event.target.value })
               }
             />
           </label>
 
           <label>
-            
             Last Name
             <input
               type="text"
               placeholder="Last Name"
               onChange={(event, value) =>
-                this.setState({ lastName: event.target.value })
+                this.setState({ lastname: event.target.value })
               }
             />
           </label>
 
           <label>
-
             Email Address
             <input
               type="text"
@@ -67,17 +77,17 @@ class SignUp extends Component {
           </label>
 
           <label>
-
             Password
             <input
               type="text"
               placeholder="Password"
-              onChange={(event, value) => this.setState({ password: value })}
+              onChange={(event, value) =>
+                this.setState({ password: event.target.value })
+              }
             />
           </label>
 
-          <button>Login</button>
-
+          <input type="submit" value="Sign Up" />
         </form>
       </div>
     );

@@ -18,13 +18,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-<<<<<<< HEAD
-    // Call out fecth function below once the components mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-=======
->>>>>>> 53e651f5366ee65c055c95b4740a44f853595f31
   }
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
 
@@ -44,9 +37,9 @@ class App extends Component {
       <Router>
         <div>
           <li>
-            <Link to="/users/register">SignUp</Link>
+            <Link to="/users/register/">SignUp</Link>
           </li>
-          <Route path="/users/register" component={SignUpForm}></Route>
+          <Route path="/users/register/" component={SignUpForm}></Route>
         </div>
 
         <div>
