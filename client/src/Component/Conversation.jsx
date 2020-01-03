@@ -56,32 +56,35 @@ class Conversation extends Component {
 
   render() {
     const { message } = this.state;
-    return (
-      <div>
-        <h1>Sneaky Chat</h1>
-
-        {/* conversation */}
-        {this.state.conversation.map((message, i) => (
-          <p key={message.id}>{message.body}</p>
-        ))}
-
-        {/* End Messages */}
-        {/* Form */}
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <input
-              type="text"
-              placeholder="Enter Message"
-              message="Your Message"
-              onChange={this.handleInputChange}
-              value={message}
-            />
-          </p>
-          <button>Send Message</button>
-        </form>
-        {/* End Form  */}
-      </div>
-    );
+    if (this.props.isAuth == true){
+      return (
+        <div>
+          <h1>Sneaky Chat</h1>
+          {this.state.conversation.map((message, i) => (
+            <p key={message.id}>{message.body}</p>
+          ))}
+          <form onSubmit={this.handleSubmit}>
+            <p>
+              <input
+                type="text"
+                placeholder="Enter Message"
+                message="Your Message"
+                onChange={this.handleInputChange}
+                value={message}
+              />
+            </p>
+            <button>Send Message</button>
+          </form>
+          {/* End Form  */}
+        </div>
+        );
+    } else {
+      return(
+        <div>
+          You Must be logged in to view this page
+        </div>
+      )
+    }
   }
 }
 
