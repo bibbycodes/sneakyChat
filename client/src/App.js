@@ -12,10 +12,34 @@ import LoginForm from './Component/LoginForm';
 import Conversation from './Component/Conversation';
 
 class App extends Component {
-  state = {  
-    data: null
+  constructor(props){
+    super(props)
+    this.state = {  
+      isAuthenticated: localStorage.getItem('isAuth')
+    }
+    console.log("C", this.state.isAuthenticated)
   }
 
+
+  login = () => {
+    this.setState({ isAuthenticated : true })
+    this.forceUpdate()
+    console.log("A", this.state)
+  }
+
+  logout = () => {
+    this.setState({isAuthenticated : false})
+    this.forceUpdate()
+    console.log("B", this.state.isAuthenticated)
+  }
+
+  showConvoLink() {
+    if(this.state.isAuthenticated == true) {
+      return(
+        <li><Link to='/conversation/'>Conversation</Link></li>
+      )
+    }
+  }
 
   componentDidMount() {
   }
@@ -29,20 +53,19 @@ class App extends Component {
     if(response.status !== 200) {
       throw Error(body.message)
     }
-    return body 
+    return body
   }
 
   render() { 
-    return (  
+    return (
       <Router>
         <div>
-          <ol>
+          <ul>
             <li><Link to='/authenticate'>Login</Link></li>
-            <li><Link to='/conversation/'>Conversation</Link></li>
-          </ol>
-
-          <Route path='/authenticate' component={LoginForm}></Route>
-          <Route path='/conversation/' component={Conversation}></Route>
+            {this.showConvoLink()}
+          </ul>
+          <Route path='/authenticate' component={() => <LoginForm auth={this.login}/>}></Route>
+          <Route path='/conversation/' component={() => <Conversation isAuth={this.state.isAuthenticated}/>}></Route>
         </div>
       </Router>
     )
