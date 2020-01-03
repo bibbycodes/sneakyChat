@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
+// ------------
+
+import Navbar from './Component/navbar';
+
+// ------------
 import "./App.css";
 import {
   BrowserRouter as Router,

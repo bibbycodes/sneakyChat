@@ -52,18 +52,6 @@ class LoginForm extends Component {
             />
           </label>
 
-          <label>
-            {" "}
-            Password
-            <input
-              type="text"
-              placeholder="Password"
-              onChange={event => {
-                this.setState({ password: event.target.value });
-              }}
-            />
-          </label>
-
           <input type="submit" value="Login!" />
         </form>
       </div>
