@@ -37,15 +37,12 @@ app.post("/users/register", async (req, res) => {
   let password = req.body.password;
 
   let user = await User.create(firstname, lastname, email, password);
-  console.log("Tatt", user)
-  let authenticated = await User.authenticate(email, password)
+  let authenticated = await User.authenticate(email, password);
 
-  if(authenticated instanceof User){
-     let a = res.status(200).json({ user });
-      console.log("Tatti1", a.body)
-
+  if (authenticated instanceof User) {
+    let a = res.status(200).json({ user });
   } else {
-    res.status(401)
+    res.status(401);
   }
 });
 
