@@ -42,7 +42,7 @@ class Conversation extends Component {
       conversationId : this.state.conversationId
     }
 
-    socket.emit(`send message-${this.state.conversationId}`, message_obj)
+    socket.emit(`send message`, message_obj)
   };
 
   handleInputChange = event => {
