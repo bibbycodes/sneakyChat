@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Axios from "axios";
 import socketIOClient from "socket.io-client";
 const socket = socketIOClient();
+<<<<<<< HEAD
 console.log(socket);
+=======
+>>>>>>> 53e651f5366ee65c055c95b4740a44f853595f31
 
 class Conversation extends Component {
   constructor(props) {
