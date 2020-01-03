@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Axios from 'axios'
-import socketIOClient from 'socket.io-client'
+import Axios from "axios";
+import socketIOClient from "socket.io-client";
 const socket = socketIOClient();
 
 class Conversation extends Component {
@@ -9,51 +9,50 @@ class Conversation extends Component {
     this.state = {
       new_message: " ",
       conversationId: 1,
-      userId : 1,
+      userId: 1,
       conversation: []
     };
   }
 
   componentDidMount() {
-    Axios.get('/conversation/1')
-      .then(res => {
-        this.setState({conversation : res.data.conversation})
-      })
+    Axios.get("/conversation/1").then(res => {
+      this.setState({ conversation: res.data.conversation });
+    });
 
-    socket.on('new message', data => {
-      this.handleIncomingMessage(data)
-    })
+    socket.on("new message", data => {
+      this.handleIncomingMessage(data);
+    });
   }
 
   handleSubmit = event => {
     event.preventDefault();
     const data = this.state.new_message;
-    let allMessages = this.state.conversation
-    allMessages.push(data)
+    let allMessages = this.state.conversation;
+    allMessages.push(data);
 
     this.setState({
-        conversation: allMessages
+      conversation: allMessages
     });
 
     let message_obj = {
       body: data,
-      senderId : this.state.userId,
-      conversationId : this.state.conversationId
-    }
+      senderId: this.state.userId,
+      conversationId: this.state.conversationId
+    };
 
-    socket.emit(`send message`, message_obj)
+    socket.emit(`send message`, message_obj);
   };
 
   handleInputChange = event => {
     event.preventDefault();
-    this.setState({new_message: event.target.value});
+    this.setState({ new_message: event.target.value });
   };
 
   handleIncomingMessage = message => {
-    let allMessages = this.state.conversation
-    allMessages.push(message)
-    this.setState({conversation : allMessages})
-  }
+    let allMessages = this.state.conversation;
+    allMessages.push(message);
+    this.setState({ conversation: allMessages });
+  };
 
   render() {
     const { message } = this.state;
@@ -86,11 +85,7 @@ class Conversation extends Component {
         </div>
       )
     }
-    
   }
 }
-
-
-
 
 export default Conversation;

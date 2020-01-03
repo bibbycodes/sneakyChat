@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
-
-import Axios from 'axios'
+import Axios from "axios";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -31,6 +29,7 @@ class LoginForm extends Component {
       .catch(err => console.log("Unauthorized", err))
   }
 
+
   handleLogout = event => {
     localStorage.setItem('isAuth', false)
   }
@@ -39,34 +38,38 @@ class LoginForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleLogin}>
-          <label> Email
-            <input 
-              type="text" 
+          <label>
+            {" "}
+            Email
+            <input
+              type="text"
               placeholder="Email"
-              onChange={(event) => {
-                this.setState({ email : event.target.value })
-              }}
+              onChange={(event, value) =>
+                this.setState({ email: event.target.value })
+              }
             />
           </label>
 
-          <label> Password
-            <input 
-            type="text" 
-            placeholder="Password"
-            onChange={(event) => {
-              this.setState({ password : event.target.value })
-            }}
-          />
+          <label>
+            {" "}
+            Password
+            <input
+              type="text"
+              placeholder="Password"
+              onChange={(event, value) =>
+                this.setState({ password: event.target.value })
+              }
+            />
           </label>
 
-          <input type="submit" value="Login!"/>
+          <input type="submit" value="Login!" />
         </form>
 
       <form onSubmit={this.handleLogout}>
       <input type="submit" value="log out"/>
       </form>
       </div>
-    )
+    );
   }
 }
 
