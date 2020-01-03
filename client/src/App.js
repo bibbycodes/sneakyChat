@@ -20,23 +20,24 @@ class App extends Component {
     this.state = {  
       isAuthenticated: localStorage.getItem('isAuth')
     }
-    console.log("C", this.state.isAuthenticated)
+    console.log("State On Load:", this.state)
   }
 
   login = () => {
     this.setState({ isAuthenticated : true })
     this.forceUpdate()
-    console.log("A", this.state)
+    console.log("State After Login", this.state)
   }
 
   logout = () => {
     this.setState({isAuthenticated : false})
     this.forceUpdate()
-    console.log("B", this.state.isAuthenticated)
+    console.log("State On Logout:", this.state)
   }
 
   showConvoLink() {
     if(this.state.isAuthenticated == true) {
+      console.log("hello")
       return(
         <li><Link to='/conversation/'>Conversation</Link></li>
       )
@@ -50,20 +51,19 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <li>
-            <Link to="/users/register/">SignUp</Link>
-          </li>
+          <Link to="/users/register/">SignUp</Link>
           <Route path="/users/register/" component={SignUpForm}></Route>
         </div>
-
         <div>
-          <ul>
-            <li><Link to="/authenticate">Login</Link></li>
-            <li>{ this.showConvoLink() }</li>
-          </ul>
+          <li><Link to="/authenticate">Login</Link></li>
+          { this.showConvoLink() }
 
-          <Route path='/authenticate' component={() => <LoginForm auth={this.login}/>}></Route>
-          <Route path='/conversation/' component={() => <Conversation isAuth={this.state.isAuthenticated}/>}></Route>
+          <Route path='/authenticate' component={() => 
+            <LoginForm authenticate={this.login}/>}>
+          </Route>
+          <Route path='/conversation/' component={() => 
+            <Conversation isAuth={this.state.isAuthenticated}/>}>
+          </Route>
 
         </div>
       </Router>

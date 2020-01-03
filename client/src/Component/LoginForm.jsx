@@ -12,7 +12,7 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage)
+    console.log("Login Form:", localStorage)
   }
 
   handleLogin = event => {
@@ -23,7 +23,7 @@ class LoginForm extends Component {
         let user = res.data.user
         if (user) {
           localStorage.setItem('isAuth', true)
-          this.props.auth()
+          this.props.authenticate()
         }
       })
       .catch(err => console.log("Unauthorized", err))

@@ -75,7 +75,6 @@ class Conversation extends Component {
             </p>
             <button>Send Message</button>
           </form>
-          {/* End Form  */}
         </div>
         );
     } else {
