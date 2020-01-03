@@ -76,9 +76,9 @@ describe('User', () => {
       expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
     })
 
-    it('returns undefined if the password is incorrect', async () => {
+    it('returns "Email or Password Incorrect" if the password is incorrect', async () => {
       await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
-      expect(await User.authenticate('joe@gmail.com', 'wrongpass')).toEqual(undefined)
+      expect(await User.authenticate('joe@gmail.com', 'wrongpass')).toEqual("Email or Password Incorrect")
     })
   })
 })
