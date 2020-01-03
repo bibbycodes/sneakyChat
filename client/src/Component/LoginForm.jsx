@@ -14,20 +14,25 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(localStorage)
   }
 
   handleLogin = event => {
     event.preventDefault()
-    let credentials = {email : this.state.email, password : this.state.password}
+    let credentials = { email : this.state.email, password : this.state.password }
     Axios.post('/users/authenticate', credentials)
       .then(res => {
         let user = res.data.user
         if (user) {
+          localStorage.setItem('isAuth', true)
           this.props.auth()
         }
       })
       .catch(err => console.log("Unauthorized", err))
+  }
+
+  handleLogout = event => {
+    localStorage.setItem('isAuth', false)
   }
 
   render() {
@@ -56,6 +61,10 @@ class LoginForm extends Component {
 
           <input type="submit" value="Login!"/>
         </form>
+
+      <form onSubmit={this.handleLogout}>
+      <input type="submit" value="log out"/>
+      </form>
       </div>
     )
   }

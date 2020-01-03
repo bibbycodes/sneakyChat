@@ -14,24 +14,27 @@ import Conversation from './Component/Conversation';
 class App extends Component {
   constructor(props){
     super(props)
-
-    this.authenticate = this.authenticate.bind(this)
     this.state = {  
-      data: null,
-      isAuthenticated: false
+      isAuthenticated: localStorage.getItem('isAuth')
     }
+    console.log("C", this.state.isAuthenticated)
   }
 
 
-  authenticate() {
-    this.setState({
-      isAuthenticated : true
-    })
+  login = () => {
+    this.setState({ isAuthenticated : true })
+    this.forceUpdate()
     console.log("A", this.state)
   }
 
+  logout = () => {
+    this.setState({isAuthenticated : false})
+    this.forceUpdate()
+    console.log("B", this.state.isAuthenticated)
+  }
+
   showConvoLink() {
-    if(this.state.isAuthenticated) {
+    if(this.state.isAuthenticated == true) {
       return(
         <li><Link to='/conversation/'>Conversation</Link></li>
       )
@@ -54,16 +57,15 @@ class App extends Component {
   }
 
   render() { 
-    return (  
+    return (
       <Router>
         <div>
           <ul>
             <li><Link to='/authenticate'>Login</Link></li>
             {this.showConvoLink()}
           </ul>
-
-          <Route path='/authenticate' component={() => <LoginForm auth={this.authenticate}/>}></Route>
-          <Route path='/conversation/' component={() => <Conversation/>}></Route>
+          <Route path='/authenticate' component={() => <LoginForm auth={this.login}/>}></Route>
+          <Route path='/conversation/' component={() => <Conversation isAuth={this.state.isAuthenticated}/>}></Route>
         </div>
       </Router>
     )
