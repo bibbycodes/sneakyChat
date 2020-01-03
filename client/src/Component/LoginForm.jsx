@@ -4,19 +4,26 @@ import Axios from 'axios'
 
 class LoginForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: "",
       password: ""
-    }
+    };
+  }
+
+  componentDidMount() {
+
   }
 
   handleLogin = event => {
-    console.log(event)
+    event.preventDefault()
+    let credentials = {email : this.state.email, password : this.state.password}
+    Axios.post('/authenticate', credentials)
+      .then(res => console.log(res))
+      .catch(err => console.log("Unauthorized", err))
   }
 
   render() {
-    let { email, password } = this.state
     return (
       <div>
         <form onSubmit={this.handleLogin}>
@@ -24,7 +31,9 @@ class LoginForm extends Component {
             <input 
               type="text" 
               placeholder="Email"
-              onChange={ (event, value) => this.setState({ email : value })}
+              onChange={(event) => {
+                this.setState({ email : event.target.value })
+              }}
             />
           </label>
 
@@ -32,11 +41,13 @@ class LoginForm extends Component {
             <input 
             type="text" 
             placeholder="Password"
-            onChange={ (event, value) => this.setState({ password : value })}
+            onChange={(event) => {
+              this.setState({ password : event.target.value })
+            }}
           />
           </label>
 
-          <button>Login!</button>
+          <input type="submit" value="Login!"/>
         </form>
       </div>
     )

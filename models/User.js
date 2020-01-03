@@ -58,6 +58,8 @@ class User {
     await db.close()
     if (user) {
       return new User(user.id, user.first, user.last)
+    } else {
+      return "Email or Password Incorrect"
     }
   }
 }
