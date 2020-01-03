@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 import Axios from 'axios'
 
 class LoginForm extends Component {
@@ -7,19 +8,25 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      isAuthenticated : false
     };
   }
 
   componentDidMount() {
-
+    console.log(this.props)
   }
 
   handleLogin = event => {
     event.preventDefault()
     let credentials = {email : this.state.email, password : this.state.password}
     Axios.post('/users/authenticate', credentials)
-      .then(res => console.log(res))
+      .then(res => {
+        let user = res.data.user
+        if (user) {
+          this.props.auth()
+        }
+      })
       .catch(err => console.log("Unauthorized", err))
   }
 
