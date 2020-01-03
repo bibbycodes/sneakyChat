@@ -1,45 +1,49 @@
 import React, { Component } from "react";
 
-import Axios from 'axios'
+import Axios from "axios";
 
 class LoginForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: "",
       password: ""
-    }
+    };
   }
 
   handleLogin = event => {
-    console.log(event)
-  }
+    console.log(event);
+  };
 
   render() {
-    let { email, password } = this.state
+    let { email, password } = this.state;
     return (
       <div>
         <form onSubmit={this.handleLogin}>
-          <label> Email
-            <input 
-              type="text" 
+          <label>
+            {" "}
+            Email
+            <input
+              type="text"
               placeholder="Email"
-              onChange={ (event, value) => this.setState({ email : value })}
+              onChange={(event, value) => this.setState({ email: event.target.value })}
             />
           </label>
 
-          <label> Password
-            <input 
-            type="text" 
-            placeholder="Password"
-            onChange={ (event, value) => this.setState({ password : value })}
-          />
+          <label>
+            {" "}
+            Password
+            <input
+              type="text"
+              placeholder="Password"
+              onChange={(event, value) => this.setState({ password: event.target.value })}
+            />
           </label>
 
           <button>Login!</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Conversation from './Component/Conversation';
 import LoginForm from './Component/LoginForm'
+import SignUp from './Component/SignUpForm'
 // import Navbar from './Component/navbar';
 
 import * as serviceWorker from './serviceWorker';
