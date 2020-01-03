@@ -9,15 +9,14 @@ const server = require("http").createServer(app);
 const io = require("socket.io").listen(server);
 const bodyParser = require("body-parser");
 
-let connections = [];
 
-app.use(express.static(path.join(__dirname, "client/build")));
-app.use(bodyParser.json());
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+let connections = []
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(bodyParser.json())
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
-// console.log that your server is up and running
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -46,14 +45,15 @@ app.post("/users/register", async (req, res) => {
   }
 });
 
-app.post("/users/authenticate", async (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
-  let user = await User.authenticate(email, password);
+
+app.post('/users/authenticate', async (req, res) => {
+  let email = req.body.email
+  let password = req.body.password
+  let user = await User.authenticate(email, password)
   if (user instanceof User) {
-    res.status(200).json({ data: "Authenticated" });
+    res.status(200).json({user : user})
   } else {
-    res.send(user);
+    res.status(401)
   }
 });
 

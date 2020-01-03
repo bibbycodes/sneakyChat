@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Axios from "axios";
 
 class LoginForm extends Component {
@@ -7,22 +6,33 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      isAuthenticated : false
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(localStorage)
+  }
 
   handleLogin = event => {
-    event.preventDefault();
-    let credentials = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    Axios.post("/users/authenticate", credentials)
-      .then(res => console.log(res))
-      .catch(err => console.log("Unauthorized", err));
-  };
+    event.preventDefault()
+    let credentials = { email : this.state.email, password : this.state.password }
+    Axios.post('/users/authenticate', credentials)
+      .then(res => {
+        let user = res.data.user
+        if (user) {
+          localStorage.setItem('isAuth', true)
+          this.props.auth()
+        }
+      })
+      .catch(err => console.log("Unauthorized", err))
+  }
+
+
+  handleLogout = event => {
+    localStorage.setItem('isAuth', false)
+  }
 
   render() {
     return (
@@ -54,6 +64,10 @@ class LoginForm extends Component {
 
           <input type="submit" value="Login!" />
         </form>
+
+      <form onSubmit={this.handleLogout}>
+      <input type="submit" value="log out"/>
+      </form>
       </div>
     );
   }
