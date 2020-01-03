@@ -3,7 +3,6 @@ import Axios from 'axios'
 import socketIOClient from 'socket.io-client'
 const socket = socketIOClient();
 
-
 class Conversation extends Component {
   constructor(props) {
     super(props);
@@ -31,18 +30,18 @@ class Conversation extends Component {
     const data = this.state.new_message;
     let allMessages = this.state.conversation
     allMessages.push(data)
+
     this.setState({
         conversation: allMessages
-
     });
 
-    // Test
     let message_obj = {
-      body: this.state.new_message,
+      body: data,
       senderId : this.state.userId,
       conversationId : this.state.conversationId
     }
-    socket.emit('send message', message_obj)
+
+    socket.emit(`send message-${this.state.conversationId}`, message_obj)
   };
 
   handleInputChange = event => {
