@@ -29,6 +29,8 @@ class App extends Component {
   handleLogout = () => {
     this.setState({isAuthenticated : false})
     localStorage.setItem('isAuth', false)
+    localStorage.clear()
+    console.log(localStorage)
   }
 
   convoLink = () =>  {
@@ -57,7 +59,7 @@ class App extends Component {
     }
   }
 
-  signupForm = () => {
+  signupLink = () => {
     if(!this.state.isAuthenticated) {
       return(
         <Link to="/users/register/">SignUp</Link>
@@ -82,7 +84,7 @@ class App extends Component {
       <div>
         <h1>Sneaky Chat</h1>
       <Router>
-        { this.signupForm() } <br></br>
+        { this.signupLink() } <br></br>
         { this.logoutButton() } <br></br>
         { this.loginLink() } <br></br>
         { this.convoLink() } <br></br>
@@ -90,15 +92,17 @@ class App extends Component {
         <Route path="/users/register/" component={SignUpForm}></Route>
         <Route path='/authenticate' component={() => 
           <LoginForm 
-          authenticate={this.handleLogin}
-          setUser={this.setUser}
-          />}>
+            authenticate={this.handleLogin}
+            setUser={this.setUser}
+          />
+        }>
         </Route>
         <Route path='/conversation/' component={() => 
           <Conversation 
-            isAuth={this.state.isAuthenticated}
+            isAuthenticated={this.state.isAuthenticated}
             user={this.state.user}
-          />}>
+          />
+        }>
         </Route>
       </Router>
       </div>
