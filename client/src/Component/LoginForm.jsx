@@ -12,17 +12,19 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    console.log("Login Form:", localStorage)
   }
 
   handleLogin = event => {
     event.preventDefault()
     let credentials = { email : this.state.email, password : this.state.password }
+    
     Axios.post('/users/authenticate', credentials)
       .then(res => {
         let user = res.data.user
         if (user) {
+          console.log("Login user:", user)
           localStorage.setItem('isAuth', true)
+          this.props.setUser(user)
           this.props.authenticate()
         }
       })
@@ -38,7 +40,7 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder="Email"
-              onChange={(event, value) =>
+              onChange={(event) =>
                 this.setState({ email: event.target.value })
               }
             />
@@ -49,13 +51,12 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder="Password"
-              onChange={(event, value) =>
+              onChange={(event) =>
                 this.setState({ password: event.target.value })
               }
             />
           </label>
-
-          <input type="submit" value="Login!" />
+          <input type="submit" value="Login" />
         </form>
       </div>
     );
