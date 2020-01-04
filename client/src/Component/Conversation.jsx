@@ -16,8 +16,8 @@ class Conversation extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage.getItem('userId'))
-    Axios.get("/conversation/1").then(res => {
+    Axios.get(`/conversation/${this.state.conversationId}`).then(res => {
+      console.log(res.data)
       this.setState({ conversation: res.data.conversation });
     });
 
