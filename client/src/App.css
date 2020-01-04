@@ -33,35 +33,49 @@
 .message-bubble {
   overflow: hidden;
   display: inline-flexbox;
-  border: solid;
   margin : 2px;
 }
 
 .para-sent  {
   float: left;
-  color: white;
+  color: black;
 }
 
 .para-received  {
-  color: white;
+  color: black;
   float: right;
-  text-align: end;
 }
 
-.sent {
+/* .outer-sent {
+  border: dotted;
+  background-color: red;
+}
+
+.outer-received {
+  border: dotted;
   background-color: blue;
+} */
+
+.inner-sent {
+  border: solid;
+  border-radius: 2em;
+  background-color: rgba(128, 128, 128, 0.329);
+  padding-left: 20px;
   justify-content: flex-start;
   float: left;
-  width: 80%;
-  border: dotted;
+  min-width: 25%;
+  max-width: 80%;
 }
 
-.received {
-  background-color: grey;
+.inner-received {
+  border: solid;
+  border-radius: 2em;
+  background-color: rgba(0, 0, 255, 0.24);
+  padding-right: 20px;
   justify-content: flex-end;
   float: right;
-  width: 80%;
-  border: dotted;
+  min-width: 25%;
+  max-width: 80%;
 }
 
 @keyframes App-logo-spin {

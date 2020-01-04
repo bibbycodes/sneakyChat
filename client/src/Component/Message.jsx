@@ -11,9 +11,11 @@ class Message extends Component {
   render(){
     return(
       <div className="message-bubble">
-        <div className={this.props.className}>
-          <p className={`para-${this.props.className}`}> {this.props.data.senderName} : {this.props.data.body} </p>
-        </div>
+        {/* <div className={`outer-${this.props.className}`}> */}
+          <div className={`inner-${this.props.className}`}>
+            <p className={`para-${this.props.className}`}> {this.props.data.senderName} : {this.props.data.body} </p>
+          </div>
+        {/* </div> */}
       </div>
     )
   }
