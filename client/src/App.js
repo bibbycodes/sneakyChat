@@ -17,27 +17,29 @@ import SignUpForm from "./Component/SignUpForm";
 class App extends Component {
   constructor(props){
     super(props)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
     this.state = {  
       isAuthenticated: localStorage.getItem('isAuth')
     }
     console.log("State On Load:", this.state)
   }
 
-  login = () => {
+  handleLogin = () => {
     this.setState({ isAuthenticated : true })
     this.forceUpdate()
-    console.log("State After Login", this.state)
+    console.log("State After handleLogin", this.state)
   }
 
-  logout = () => {
+  handleLogout = () => {
     this.setState({isAuthenticated : false})
     this.forceUpdate()
     console.log("State On Logout:", this.state)
   }
 
-  showConvoLink() {
-    if(this.state.isAuthenticated == true) {
-      console.log("hello")
+  showConvoLink = () =>  {
+    console.log("checking if logged in, isAuthenticated:", this.state.isAuthenticated)
+    if(this.state.isAuthenticated === true) {
       return(
         <li><Link to='/conversation/'>Conversation</Link></li>
       )
@@ -57,14 +59,12 @@ class App extends Component {
         <div>
           <li><Link to="/authenticate">Login</Link></li>
           { this.showConvoLink() }
-
           <Route path='/authenticate' component={() => 
-            <LoginForm authenticate={this.login}/>}>
+            <LoginForm authenticate={this.handleLogin}/>}>
           </Route>
           <Route path='/conversation/' component={() => 
             <Conversation isAuth={this.state.isAuthenticated}/>}>
           </Route>
-
         </div>
       </Router>
     );
