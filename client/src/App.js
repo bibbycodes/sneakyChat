@@ -20,7 +20,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.state = {  
-      isAuthenticated: localStorage.getItem('isAuth')
+      isAuthenticated: (localStorage.getItem('isAuth') == 'true')
     }
     console.log("State On Load:", this.state)
   }
@@ -38,11 +38,13 @@ class App extends Component {
   }
 
   showConvoLink = () =>  {
-    console.log("checking if logged in, isAuthenticated:", this.state.isAuthenticated)
-    if(this.state.isAuthenticated === true) {
+    console.log("checking if logged in, isAuthenticated:", this.state.isAuthenticated, typeof this.state.isAuthenticated)
+    if(this.state.isAuthenticated) {
       return(
         <li><Link to='/conversation/'>Conversation</Link></li>
       )
+    } else {
+      console.log("not rendering")
     }
   }
 
