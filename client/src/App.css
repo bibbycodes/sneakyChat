@@ -28,12 +28,40 @@
   color: #61dafb;
 }
 
+
+
+.message-bubble {
+  overflow: hidden;
+  display: inline-flexbox;
+  border: solid;
+  margin : 2px;
+}
+
+.para-sent  {
+  float: left;
+  color: white;
+}
+
+.para-received  {
+  color: white;
+  float: right;
+  text-align: end;
+}
+
 .sent {
-  color: blue;
+  background-color: blue;
+  justify-content: flex-start;
+  float: left;
+  width: 80%;
+  border: dotted;
 }
 
 .received {
-  color: grey;
+  background-color: grey;
+  justify-content: flex-end;
+  float: right;
+  width: 80%;
+  border: dotted;
 }
 
 @keyframes App-logo-spin {
