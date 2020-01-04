@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.sent {
+  color: blue;
+}
+
+.received {
+  color: grey;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import socketIOClient from "socket.io-client";
+import Message from "./Message"
 const socket = socketIOClient();
 
 class Conversation extends Component {
   constructor(props) {
-    console.log(props)
     super(props);
+console.log(this.props.user.username)
+
     this.state = {
       new_message: " ",
       conversationId: 1,
-      userId: this.props.user.id,
+      userId: localStorage.getItem('userId'),
       username: this.props.user.username,
       conversation: []
+    
+    
     };
   }
-
   componentDidMount() {
-    Axios.get("/conversation/1").then(res => {
+    Axios.get(`/conversation/${this.state.conversationId}`).then(res => {
+      console.log("res.data", res.data)
       this.setState({ conversation: res.data.conversation });
     });
 
@@ -38,10 +42,15 @@ class Conversation extends Component {
 
     let message_obj = {
       body: data,
+      
       username: this.state.username,
-      senderId: this.state.userId,
+      
+      senderName: localStorage.getItem("userFirst"),
+      senderId: localStorage.getItem("userId"),
       conversationId: this.state.conversationId
     };
+
+    console.log("message_obj", message_obj)
 
     socket.emit(`send message`, message_obj);
   };
@@ -57,13 +66,29 @@ class Conversation extends Component {
     this.setState({ conversation: allMessages });
   };
 
+  handleMessageClassName = message => {
+    console.log("senderId: ", message.sender_id)
+    console.log("userId: ", this.state.userId)
+    console.log(localStorage)
+    if (message.sender_id == this.state.userId) {
+      return "sent"
+    } else {
+      return "received"
+    }
+  }
+
   render() {
     const { message } = this.state;
-    if (this.props.isAuth){
+    if (this.props.isAuthenticated){
       return (
         <div>
           {this.state.conversation.map((message) => (
-    <p key={message.id}> {message.body} {message.senderId}</p>
+          <div key={message.id}>
+            <Message 
+            className={this.handleMessageClassName(message)} 
+            data={message}
+            />
+          </div>
           ))}
           <form onSubmit={this.handleSubmit}>
             <p>
