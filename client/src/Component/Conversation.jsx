@@ -5,11 +5,12 @@ const socket = socketIOClient();
 
 class Conversation extends Component {
   constructor(props) {
+    console.log(props)
     super(props);
     this.state = {
       new_message: " ",
       conversationId: 1,
-      userId: 1,
+      userId: this.props.user.id,
       conversation: []
     };
   }
@@ -59,9 +60,8 @@ class Conversation extends Component {
     if (this.props.isAuth){
       return (
         <div>
-          <h1>Sneaky Chat</h1>
-          {this.state.conversation.map((message, i) => (
-            <p key={message.id}>{message.body}</p>
+          {this.state.conversation.map((message) => (
+    <p key={message.id}> {message.body} {message.senderId}</p>
           ))}
           <form onSubmit={this.handleSubmit}>
             <p>

@@ -18,7 +18,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {  
-      isAuthenticated: (localStorage.getItem('isAuth') == 'true')
+      isAuthenticated: (localStorage.getItem('isAuth') == 'true'),
     }
   }
 
@@ -57,29 +57,49 @@ class App extends Component {
     }
   }
 
+  signupForm = () => {
+    if(!this.state.isAuthenticated) {
+      return(
+        <Link to="/users/register/">SignUp</Link>
+      )
+    }
+  }
+
+  setUser = (user) =>  {
+    this.setState({user : user})
+  }
+
   componentDidMount() {
+    console.log("mount user:", this.state.user)
+  }
+
+  componentDidUpdate() {
+    console.log("update user:", this.state.user)
   }
 
   render() {
     return (
       <div>
-      
+        <h1>Sneaky Chat</h1>
       <Router>
-        <div>
-          <Link to="/users/register/">SignUp</Link>
-          <Route path="/users/register/" component={SignUpForm}></Route>
-        </div>
-        <div>
-          { this.logoutButton() }
-          { this.loginLink() }
-          { this.convoLink() }
-          <Route path='/authenticate' component={() => 
-            <LoginForm authenticate={this.handleLogin}/>}>
-          </Route>
-          <Route path='/conversation/' component={() => 
-            <Conversation isAuth={this.state.isAuthenticated}/>}>
-          </Route>
-        </div>
+        { this.signupForm() } <br></br>
+        { this.logoutButton() } <br></br>
+        { this.loginLink() } <br></br>
+        { this.convoLink() } <br></br>
+
+        <Route path="/users/register/" component={SignUpForm}></Route>
+        <Route path='/authenticate' component={() => 
+          <LoginForm 
+          authenticate={this.handleLogin}
+          setUser={this.setUser}
+          />}>
+        </Route>
+        <Route path='/conversation/' component={() => 
+          <Conversation 
+            isAuth={this.state.isAuthenticated}
+            user={this.state.user}
+          />}>
+        </Route>
       </Router>
       </div>
     );
