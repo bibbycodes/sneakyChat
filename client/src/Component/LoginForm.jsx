@@ -29,17 +29,11 @@ class LoginForm extends Component {
       .catch(err => console.log("Unauthorized", err))
   }
 
-
-  handleLogout = event => {
-    localStorage.setItem('isAuth', false)
-  }
-
   render() {
     return (
       <div>
         <form onSubmit={this.handleLogin}>
           <label>
-            {" "}
             Email
             <input
               type="text"
@@ -51,7 +45,6 @@ class LoginForm extends Component {
           </label>
 
           <label>
-            {" "}
             Password
             <input
               type="text"
@@ -64,10 +57,6 @@ class LoginForm extends Component {
 
           <input type="submit" value="Login!" />
         </form>
-
-      <form onSubmit={this.handleLogout}>
-      <input type="submit" value="log out"/>
-      </form>
       </div>
     );
   }

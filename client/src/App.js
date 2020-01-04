@@ -17,34 +17,43 @@ import SignUpForm from "./Component/SignUpForm";
 class App extends Component {
   constructor(props){
     super(props)
-    this.handleLogin = this.handleLogin.bind(this)
-    this.handleLogout = this.handleLogout.bind(this)
     this.state = {  
       isAuthenticated: (localStorage.getItem('isAuth') == 'true')
     }
-    console.log("State On Load:", this.state)
   }
 
   handleLogin = () => {
     this.setState({ isAuthenticated : true })
-    this.forceUpdate()
-    console.log("State After handleLogin", this.state)
   }
 
   handleLogout = () => {
     this.setState({isAuthenticated : false})
-    this.forceUpdate()
-    console.log("State On Logout:", this.state)
+    localStorage.setItem('isAuth', false)
   }
 
-  showConvoLink = () =>  {
-    console.log("checking if logged in, isAuthenticated:", this.state.isAuthenticated, typeof this.state.isAuthenticated)
+  convoLink = () =>  {
     if(this.state.isAuthenticated) {
       return(
-        <li><Link to='/conversation/'>Conversation</Link></li>
+        <Link to='/conversation/'>Conversation</Link>
       )
-    } else {
-      console.log("not rendering")
+    }
+  }
+
+  loginLink = () => {
+    if(!this.state.isAuthenticated) {
+      return(
+        <Link to="/authenticate">Login</Link>
+      )
+    }
+  }
+
+  logoutButton = () => {
+    if(this.state.isAuthenticated) {
+      return(
+        <form onSubmit={this.handleLogout}>
+          <input type="submit" value="log out"/>
+        </form>
+      )
     }
   }
 
@@ -53,14 +62,17 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+      
       <Router>
         <div>
           <Link to="/users/register/">SignUp</Link>
           <Route path="/users/register/" component={SignUpForm}></Route>
         </div>
         <div>
-          <li><Link to="/authenticate">Login</Link></li>
-          { this.showConvoLink() }
+          { this.logoutButton() }
+          { this.loginLink() }
+          { this.convoLink() }
           <Route path='/authenticate' component={() => 
             <LoginForm authenticate={this.handleLogin}/>}>
           </Route>
@@ -69,6 +81,7 @@ class App extends Component {
           </Route>
         </div>
       </Router>
+      </div>
     );
   }
 }
