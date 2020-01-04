@@ -11,6 +11,7 @@ class Conversation extends Component {
       new_message: " ",
       conversationId: 1,
       userId: this.props.user.id,
+      username: this.props.user.username,
       conversation: []
     };
   }
@@ -37,6 +38,7 @@ class Conversation extends Component {
 
     let message_obj = {
       body: data,
+      username: this.state.username,
       senderId: this.state.userId,
       conversationId: this.state.conversationId
     };

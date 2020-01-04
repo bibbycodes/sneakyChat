@@ -22,7 +22,7 @@ class LoginForm extends Component {
       .then(res => {
         let user = res.data.user
         if (user) {
-          console.log("Login user:", user)
+          console.log("Login User:", user)
           localStorage.setItem('isAuth', true)
           this.props.setUser(user)
           this.props.authenticate()
