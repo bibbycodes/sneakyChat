@@ -22,10 +22,12 @@ class LoginForm extends Component {
       .then(res => {
         let user = res.data.user
         if (user) {
-          console.log("Login user:", user)
           localStorage.setItem('isAuth', true)
+          localStorage.setItem('userId', user.id)
+          localStorage.setItem('userFirst', user.first)
           this.props.setUser(user)
           this.props.authenticate()
+          console.log(localStorage)
         }
       })
       .catch(err => console.log("Unauthorized", err))
