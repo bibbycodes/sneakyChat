@@ -18,27 +18,41 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {  
-      isAuthenticated: localStorage.getItem('isAuth')
+      isAuthenticated: (localStorage.getItem('isAuth') == 'true')
     }
-    console.log("C", this.state.isAuthenticated)
   }
 
-  login = () => {
+  handleLogin = () => {
     this.setState({ isAuthenticated : true })
-    this.forceUpdate()
-    console.log("A", this.state)
   }
 
-  logout = () => {
+  handleLogout = () => {
     this.setState({isAuthenticated : false})
-    this.forceUpdate()
-    console.log("B", this.state.isAuthenticated)
+    localStorage.setItem('isAuth', false)
   }
 
-  showConvoLink() {
-    if(this.state.isAuthenticated == true) {
+  convoLink = () =>  {
+    if(this.state.isAuthenticated) {
       return(
-        <li><Link to='/conversation/'>Conversation</Link></li>
+        <Link to='/conversation/'>Conversation</Link>
+      )
+    }
+  }
+
+  loginLink = () => {
+    if(!this.state.isAuthenticated) {
+      return(
+        <Link to="/authenticate">Login</Link>
+      )
+    }
+  }
+
+  logoutButton = () => {
+    if(this.state.isAuthenticated) {
+      return(
+        <form onSubmit={this.handleLogout}>
+          <input type="submit" value="log out"/>
+        </form>
       )
     }
   }
@@ -48,25 +62,26 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+      
       <Router>
         <div>
-          <li>
-            <Link to="/users/register/">SignUp</Link>
-          </li>
+          <Link to="/users/register/">SignUp</Link>
           <Route path="/users/register/" component={SignUpForm}></Route>
         </div>
-
         <div>
-          <ul>
-            <li><Link to="/authenticate">Login</Link></li>
-            <li>{ this.showConvoLink() }</li>
-          </ul>
-
-          <Route path='/authenticate' component={() => <LoginForm auth={this.login}/>}></Route>
-          <Route path='/conversation/' component={() => <Conversation isAuth={this.state.isAuthenticated}/>}></Route>
-
+          { this.logoutButton() }
+          { this.loginLink() }
+          { this.convoLink() }
+          <Route path='/authenticate' component={() => 
+            <LoginForm authenticate={this.handleLogin}/>}>
+          </Route>
+          <Route path='/conversation/' component={() => 
+            <Conversation isAuth={this.state.isAuthenticated}/>}>
+          </Route>
         </div>
       </Router>
+      </div>
     );
   }
 }

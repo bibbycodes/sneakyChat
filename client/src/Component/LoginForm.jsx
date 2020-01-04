@@ -12,7 +12,7 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage)
+    console.log("Login Form:", localStorage)
   }
 
   handleLogin = event => {
@@ -23,15 +23,10 @@ class LoginForm extends Component {
         let user = res.data.user
         if (user) {
           localStorage.setItem('isAuth', true)
-          this.props.auth()
+          this.props.authenticate()
         }
       })
       .catch(err => console.log("Unauthorized", err))
-  }
-
-
-  handleLogout = event => {
-    localStorage.setItem('isAuth', false)
   }
 
   render() {
@@ -39,7 +34,6 @@ class LoginForm extends Component {
       <div>
         <form onSubmit={this.handleLogin}>
           <label>
-            {" "}
             Email
             <input
               type="text"
@@ -51,7 +45,6 @@ class LoginForm extends Component {
           </label>
 
           <label>
-            {" "}
             Password
             <input
               type="text"
@@ -64,10 +57,6 @@ class LoginForm extends Component {
 
           <input type="submit" value="Login!" />
         </form>
-
-      <form onSubmit={this.handleLogout}>
-      <input type="submit" value="log out"/>
-      </form>
       </div>
     );
   }

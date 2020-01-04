@@ -56,7 +56,7 @@ class Conversation extends Component {
 
   render() {
     const { message } = this.state;
-    if (this.props.isAuth == true){
+    if (this.props.isAuth){
       return (
         <div>
           <h1>Sneaky Chat</h1>
@@ -75,7 +75,6 @@ class Conversation extends Component {
             </p>
             <button>Send Message</button>
           </form>
-          {/* End Form  */}
         </div>
         );
     } else {
