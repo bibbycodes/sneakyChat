@@ -14,6 +14,11 @@ class LoginForm extends Component {
   componentDidMount() {
   }
 
+  clearForm = () => {
+    this.setState({email : ""})
+    this.setState({password : ""})
+  }
+
   handleLogin = event => {
     event.preventDefault()
     let credentials = { email : this.state.email, password : this.state.password }
@@ -27,6 +32,7 @@ class LoginForm extends Component {
           localStorage.setItem('userFirst', user.first)
           this.props.setUser(user)
           this.props.authenticate()
+          this.clearForm()
         }
       })
       .catch(err => console.log("Unauthorized", err))
@@ -44,6 +50,7 @@ class LoginForm extends Component {
               onChange={(event) =>
                 this.setState({ email: event.target.value })
               }
+              value={this.state.email}
             />
           </label>
 
@@ -55,6 +62,7 @@ class LoginForm extends Component {
               onChange={(event) =>
                 this.setState({ password: event.target.value })
               }
+              value={this.state.password}
             />
           </label>
           <input type="submit" value="Login" />
