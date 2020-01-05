@@ -1,67 +1,73 @@
-const dbConnection = require('../dbConnection')
+const dbConnection = require("../dbConnection");
 
 class User {
-  constructor(id, first, last) {
-    this.id = id
-    this.first = first
-    this.last = last
+  constructor(id, first, last, username) {
+    this.id = id;
+    this.first = first;
+    this.last = last;
+    this.username = username;
   }
 
   static async find(id) {
-    let db = new dbConnection()
-    await db.start()
-    let result = await db.query(`SELECT * FROM users WHERE id=${id}`)
-    await db.close()
-    return result.rows
+    let db = new dbConnection();
+    await db.start();
+    let result = await db.query(`SELECT * FROM users WHERE id=${id}`);
+    await db.close();
+    return result.rows;
   }
 
   static async findByEmail(email) {
-    let db = new dbConnection()
-    await db.start()
-    let result = await db.query(`SELECT * FROM users WHERE email='${email}'`)
-    await db.close()
-    return result.rows
+    let db = new dbConnection();
+    await db.start();
+    let result = await db.query(`SELECT * FROM users WHERE email='${email}'`);
+    await db.close();
+    return result.rows;
   }
 
   static async check_exists(email) {
-    let user = await this.findByEmail(email)
-    return (!!user[0])
+    let user = await this.findByEmail(email);
+    return !!user[0];
   }
 
-  static async create(first, last, email, password) {
-    let exists = await this.check_exists(email)
+  static async create(username, first, last, email, password) {
+    let exists = await this.check_exists(email);
     if (exists) {
-      return "user already exists"
+      return "user already exists";
     } else {
-      let db = new dbConnection()
-      await db.start()
+      let db = new dbConnection();
+      await db.start();
       let result = await db.query(`
       INSERT INTO 
-      users (first, last, email, password) 
-      VALUES ('${first}', '${last}', '${email}', '${password}')
+      users (username, first, last, email, password) 
+      VALUES ('${username}', '${first}', '${last}', '${email}', '${password}')
       RETURNING *;
-      `)
-      let rows = result.rows
-      await db.close()
-      return new User(rows[0].id, rows[0].first, rows[0].last, rows[0].email)
+      `);
+      let rows = result.rows;
+      await db.close();
+      return new User(
+        rows[0].id,
+        rows[0].first,
+        rows[0].last,
+        rows[0].username
+      );
     }
   }
 
   static async authenticate(email, password) {
-    let db = new dbConnection()
-    await db.start()
+    let db = new dbConnection();
+    await db.start();
     let result = await db.query(`
       SELECT * FROM users
       WHERE email='${email}' AND password='${password}';
-    `)
-    let user = result.rows[0]
-    await db.close()
+    `);
+    let user = result.rows[0];
+    await db.close();
     if (user) {
-      return new User(user.id, user.first, user.last)
+      return new User(user.id, user.first, user.last, user.username);
     } else {
-      return "Email or Password Incorrect"
+      return "Email or Password Incorrect";
     }
   }
 }
 
-module.exports = User
+module.exports = User;

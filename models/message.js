@@ -1,11 +1,13 @@
 const dbConnection = require('../dbConnection')
 
 class Message {
-  constructor(senderId, body, conversationId) {
+  constructor(senderId, body, conversationId, username) {
     this.id = null
     this.senderId = senderId
     this.body = body
     this.conversationId = conversationId
+    this.username = username 
+    console.log("username",this.username)
   }
 
   static async find(id) {
@@ -24,17 +26,19 @@ class Message {
     await db.start()
     let result =  await db.query(
       `INSERT INTO messages 
-      (body, sender_id, created_at, conversation_id) 
-      VALUES ('${this.body}', '${this.senderId}', '${curDate}', '${this.conversationId}')
+      (username, body, sender_id, created_at, conversation_id) 
+      VALUES ('${this.username}','${this.body}', '${this.senderId}', '${curDate}', '${this.conversationId}')
       RETURNING *;
       `
     )
+    console.log("RESULT",result)
     this.id = result.rows[0].id
+
     await db.close()
     return result.rows;
   }
 
-  async getConvo(id) {
+  static async getConvo(id) {
     let db = new dbConnection()
     await db.start()
     let conversation = await db.query(`

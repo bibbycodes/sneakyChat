@@ -35,7 +35,7 @@ app.post("/users/register", async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let user = await User.create(firstname, lastname, email, password);
+  let user = await User.create(username, firstname, lastname, email, password);
   let authenticated = await User.authenticate(email, password);
 
   if (authenticated instanceof User) {
@@ -88,7 +88,8 @@ io.on("connection", function(socket) {
     let message = new Message(
       parseInt(data.senderId),
       data.body,
-      parseInt(data.conversationId)
+      parseInt(data.conversationId),
+      data.username
     );
     message.create();
     io.sockets.emit("new message", data);
