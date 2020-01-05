@@ -3,19 +3,27 @@ import React, { Component } from "react";
 class Message extends Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.state = {}
+  }
 
+  componentDidMount() {
+    this.setState({className: this.handleClassName(this.props.data)})
+  }
+
+  handleClassName = message => {
+    if (message.sender_id.toString() == localStorage.userId) {
+      return "sent"
+    } else {
+      return "received"
     }
   }
 
   render(){
     return(
       <div className="message-bubble">
-        {/* <div className={`outer-${this.props.className}`}> */}
-          <div className={`inner-${this.props.className}`}>
-            <p className={`para-${this.props.className}`}> {this.props.data.senderName} : {this.props.data.body} </p>
+          <div className={`inner-${this.state.className}`}>
+            <p className={`text-${this.state.className}`}> {this.props.data.body} </p>
           </div>
-        {/* </div> */}
       </div>
     )
   }
