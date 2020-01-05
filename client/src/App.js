@@ -91,11 +91,12 @@ class App extends Component {
 
         <Route path="/users/register/" component={() => 
           <SignUpForm
-          authenticate={this.handleLogin}
-          setUser={this.setUser}
+            authenticate={this.handleLogin}
+            setUser={this.setUser}
           />
         }>
         </Route>
+
         <Route path='/authenticate' component={() => 
           <LoginForm 
             authenticate={this.handleLogin}
@@ -103,6 +104,7 @@ class App extends Component {
           />
         }>
         </Route>
+
         <Route path='/conversation/' component={() => 
           <Conversation 
             isAuthenticated={this.state.isAuthenticated}
@@ -110,6 +112,7 @@ class App extends Component {
           />
         }>
         </Route>
+
       </Router>
       </div>
     );

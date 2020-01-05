@@ -18,8 +18,6 @@ class Message {
     return result.rows
   }
 
-  
-
   async create() {
     let db = new dbConnection()
     let curDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
