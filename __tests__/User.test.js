@@ -51,7 +51,6 @@ describe('User', () => {
   describe('.create', () => {
     it('creates a new user', async () => {
       let user = await User.create('Thomas', 'Griffith', 'tomtom@gmail.com', 'secret')
-      console.log("b", user)
       expect(user instanceof User).toBe(true)
     })
 

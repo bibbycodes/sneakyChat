@@ -25,6 +25,10 @@ class Conversation extends Component {
     });
   }
 
+  clearForm = () => {
+    this.setState({new_message : ""})
+  }
+
   handleSubmit = event => {
     event.preventDefault();
 
@@ -44,6 +48,7 @@ class Conversation extends Component {
     };
 
     socket.emit(`send message`, message_obj);
+    this.clearForm()
   };
 
   handleInputChange = event => {
@@ -76,7 +81,7 @@ class Conversation extends Component {
                 placeholder="Enter Message"
                 message="Your Message"
                 onChange={this.handleInputChange}
-                value={message}
+                value={this.state.new_message}
               />
             </p>
             <button>Send Message</button>
