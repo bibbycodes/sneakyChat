@@ -25,7 +25,7 @@ describe('Message', () => {
 
   describe('#getConvo', () => {
     it('returns an array of messages between two users', async () => {
-      let result = await message.getConvo(1)
+      let result = await Message.getConvo(1)
       expect(result[0].body).toEqual("Hey you!")
       expect(result[1].body).toEqual("Hey Girl!")
       expect(result[2].body).toEqual("Love You!")
