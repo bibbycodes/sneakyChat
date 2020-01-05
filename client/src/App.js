@@ -31,10 +31,8 @@ class App extends Component {
     this.setState({isAuthenticated : false})
     localStorage.setItem('isAuth', false)
     localStorage.clear()
-<<<<<<< HEAD
-    console.log("localStorage", localStorage)
-=======
->>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
+
+
   }
 
   convoLink = () =>  {

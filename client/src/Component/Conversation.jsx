@@ -21,10 +21,6 @@ console.log(this.props.user.username)
   }
   componentDidMount() {
     Axios.get(`/conversation/${this.state.conversationId}`).then(res => {
-<<<<<<< HEAD
-      console.log("res.data", res.data)
-=======
->>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
       this.setState({ conversation: res.data.conversation });
     });
 
@@ -54,11 +50,6 @@ console.log(this.props.user.username)
       conversationId: this.state.conversationId
     };
 
-<<<<<<< HEAD
-    console.log("message_obj", message_obj)
-
-=======
->>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
     socket.emit(`send message`, message_obj);
   };
 
