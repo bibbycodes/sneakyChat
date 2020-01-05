@@ -56,8 +56,9 @@ describe('User', () => {
     })
 
     it('adds a user to the database', async () => {
-      await User.create('Robert', 'Rosiji', 'rob@gmail.com', 'secret')
+      await User.create('RobertR','Robert', 'Rosiji', 'rob@gmail.com', 'secret')
       let user = await User.find(5)
+      expect(user[0].username).toEqual('RobertR')
       expect(user[0].first).toEqual('Robert')
       expect(user[0].last).toEqual('Rosiji')
       expect(user[0].email).toEqual('rob@gmail.com')
@@ -72,7 +73,7 @@ describe('User', () => {
 
   describe('.authenticate', () => {
     it('returns the user after successful authentication', async () => {
-      let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      let user = await User.create('JoeG','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
       expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
     })
 
