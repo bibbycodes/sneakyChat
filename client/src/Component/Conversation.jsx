@@ -8,7 +8,7 @@ class Conversation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      new_message: " ",
+      new_message: "",
       conversationId: 1,
       userId: localStorage.getItem('userId'),
       conversation: []
@@ -17,7 +17,6 @@ class Conversation extends Component {
 
   componentDidMount() {
     Axios.get(`/conversation/${this.state.conversationId}`).then(res => {
-      console.log(res.data)
       this.setState({ conversation: res.data.conversation });
     });
 
@@ -28,9 +27,10 @@ class Conversation extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const data = this.state.new_message;
+
+    let data = this.state.new_message;
     let allMessages = this.state.conversation;
-    allMessages.push(data);
+    // allMessages.push(data); BUGGGGGGGGG
 
     this.setState({
       conversation: allMessages
@@ -39,11 +39,9 @@ class Conversation extends Component {
     let message_obj = {
       body: data,
       senderName: localStorage.getItem("userFirst"),
-      senderId: localStorage.getItem("userId"),
+      sender_id: localStorage.getItem("userId"),
       conversationId: this.state.conversationId
     };
-
-    console.log(message_obj)
 
     socket.emit(`send message`, message_obj);
   };
@@ -59,16 +57,7 @@ class Conversation extends Component {
     this.setState({ conversation: allMessages });
   };
 
-  handleMessageClassName = message => {
-    console.log("senderId: ", message.sender_id)
-    console.log("userId: ", this.state.userId)
-    console.log(localStorage)
-    if (message.sender_id == this.state.userId) {
-      return "sent"
-    } else {
-      return "received"
-    }
-  }
+
 
   render() {
     const { message } = this.state;
@@ -76,12 +65,9 @@ class Conversation extends Component {
       return (
         <div>
           {this.state.conversation.map((message) => (
-          <div key={message.id}>
-            <Message 
-            className={this.handleMessageClassName(message)} 
+            <Message
             data={message}
             />
-          </div>
           ))}
           <form onSubmit={this.handleSubmit}>
             <p>
