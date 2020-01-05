@@ -6,24 +6,44 @@ class SignUp extends Component {
     super(props);
     this.state = {
       username: null,
-      firstname: null,
-      lastname: null,
+      firstName: null,
+      lastName: null,
       email: null,
       password: null
     };
+  }
+
+  clearForm = () => {
+    this.setState({
+      username: null,
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null
+    })
   }
 
   handleSignup = event => {
     event.preventDefault();
     let credentials = {
       username: this.state.username,
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password
     };
+    
     Axios.post("/users/register", credentials)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        let user = res.data.user
+        localStorage.setItem('isAuth', true)
+        localStorage.setItem('userId', user.id)
+        localStorage.setItem('userFirst', user.first)
+        this.props.setUser(user)
+        this.props.authenticate()
+        this.clearForm()
+      })
       .catch(err => console.log("Unauthorized", err));
   };
 
@@ -36,9 +56,10 @@ class SignUp extends Component {
             <input
               type="text"
               placeholder="UserName"
-              onChange={(event, value) =>
+              onChange={(event) =>
                 this.setState({ username: event.target.value })
               }
+              value={this.state.username}
             />
           </label>
 
@@ -47,9 +68,10 @@ class SignUp extends Component {
             <input
               type="text"
               placeholder="First Name"
-              onChange={(event, value) =>
-                this.setState({ firstname: event.target.value })
+              onChange={(event) =>
+                this.setState({ firstName: event.target.value })
               }
+              value={this.state.firstName}
             />
           </label>
 
@@ -58,9 +80,10 @@ class SignUp extends Component {
             <input
               type="text"
               placeholder="Last Name"
-              onChange={(event, value) =>
-                this.setState({ lastname: event.target.value })
+              onChange={(event) =>
+                this.setState({ lastName: event.target.value })
               }
+              value={this.state.lastName}
             />
           </label>
 
@@ -69,9 +92,10 @@ class SignUp extends Component {
             <input
               type="text"
               placeholder="Email Address"
-              onChange={(event, value) =>
+              onChange={(event) =>
                 this.setState({ email: event.target.value })
               }
+              value={this.state.email}
             />
           </label>
 
@@ -80,9 +104,10 @@ class SignUp extends Component {
             <input
               type="text"
               placeholder="Password"
-              onChange={(event, value) =>
+              onChange={(event) =>
                 this.setState({ password: event.target.value })
               }
+              value={this.state.password}
             />
           </label>
 

@@ -28,16 +28,16 @@ app.get("/conversation/:id", async (req, res) => {
 
 app.post("/users/register", async (req, res) => {
   let username = req.body.username;
-  let firstname = req.body.firstname;
-  let lastname = req.body.lastname;
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
   let email = req.body.email;
   let password = req.body.password;
 
-  let user = await User.create(firstname, lastname, email, password);
+  let user = await User.create(firstName, lastName, email, password);
   let authenticated = await User.authenticate(email, password);
 
   if (authenticated instanceof User) {
-    let a = res.status(200).json({ user });
+    res.status(200).json({ user });
   } else {
     res.status(401);
   }

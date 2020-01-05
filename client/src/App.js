@@ -89,7 +89,13 @@ class App extends Component {
         { this.loginLink() } <br></br>
         { this.convoLink() } <br></br>
 
-        <Route path="/users/register/" component={SignUpForm}></Route>
+        <Route path="/users/register/" component={() => 
+          <SignUpForm
+          authenticate={this.handleLogin}
+          setUser={this.setUser}
+          />
+        }>
+        </Route>
         <Route path='/authenticate' component={() => 
           <LoginForm 
             authenticate={this.handleLogin}
