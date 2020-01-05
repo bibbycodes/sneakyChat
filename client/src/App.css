@@ -28,12 +28,46 @@
   color: #61dafb;
 }
 
-.sent {
-  color: blue;
+
+
+.message-bubble {
+  overflow: hidden;
+  display: inline-flexbox;
+  margin : 2px;
 }
 
-.received {
-  color: grey;
+.inner-sent, .inner-received {
+  border: solid;
+  border-width: 1px;
+  border-radius: 2em;
+  /* min-width: 200px; */
+  max-width: 80%;
+}
+
+.text-sent  {
+  float: left;
+  color: black;
+}
+
+.text-received  {
+  color: black;
+  float: right;
+}
+
+.inner-sent {
+  background-color: rgba(128, 128, 128, 0.329);
+  padding-left: 20px;
+  padding-right: 20px;
+  /* justify-content: flex-start; */
+  float: left;
+}
+
+.inner-received {
+  background-color: rgba(0, 0, 255, 0.24);
+  padding-right: 20px;
+  padding-left: 20px;
+  /* justify-content: flex-end; */
+  float: right;
 }
 
 @keyframes App-logo-spin {

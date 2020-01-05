@@ -22,10 +22,8 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get("/conversation/:id", async (req, res) => {
   let id = req.params.id;
-  let db = new dbconn();
-  await db.start();
-  result = await db.query(`SELECT * FROM messages WHERE conversation_id=${id}`);
-  res.status(200).json({ conversation: result.rows });
+  let result = await Message.getConvo(id);
+  res.status(200).json({ conversation: result });
 });
 
 app.post("/users/register", async (req, res) => {
@@ -60,7 +58,7 @@ app.post('/users/authenticate', async (req, res) => {
 app.post("/messages/", async (req, res) => {
   let query = req.query;
   let message = new Message(
-    parseInt(query.senderId),
+    parseInt(query.sender_id), // be careful with parseInt and toString() keep consistent during flow of data
     query.body,
     parseInt(query.conversationId)
   );
@@ -86,7 +84,7 @@ io.on("connection", function(socket) {
 
   socket.on("send message", function(data) {
     let message = new Message(
-      parseInt(data.senderId),
+      parseInt(data.sender_id), // camel case this
       data.body,
       parseInt(data.conversationId),
       data.username

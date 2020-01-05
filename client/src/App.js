@@ -31,7 +31,10 @@ class App extends Component {
     this.setState({isAuthenticated : false})
     localStorage.setItem('isAuth', false)
     localStorage.clear()
+<<<<<<< HEAD
     console.log("localStorage", localStorage)
+=======
+>>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
   }
 
   convoLink = () =>  {
@@ -72,12 +75,11 @@ class App extends Component {
     this.setState({user : user})
   }
 
-  componentDidMount() {
-    console.log("mount user:", this.state.user)
+  componentDidMount() { //
+    this.setState({user : localStorage.getItem("userId")})
   }
 
   componentDidUpdate() {
-    console.log("update user:", this.state.user)
   }
 
   render() {
@@ -85,6 +87,8 @@ class App extends Component {
       <div>
         <h1>Sneaky Chat</h1>
       <Router>
+        {/* Extract to NavBar */}
+        {/* renders conditionally */}
         { this.signupLink() } <br></br>
         { this.logoutButton() } <br></br>
         { this.loginLink() } <br></br>

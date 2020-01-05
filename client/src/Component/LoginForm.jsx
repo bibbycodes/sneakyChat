@@ -27,7 +27,6 @@ class LoginForm extends Component {
           localStorage.setItem('userFirst', user.first)
           this.props.setUser(user)
           this.props.authenticate()
-          console.log(localStorage)
         }
       })
       .catch(err => console.log("Unauthorized", err))

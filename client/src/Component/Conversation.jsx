@@ -10,7 +10,7 @@ class Conversation extends Component {
 console.log(this.props.user.username)
 
     this.state = {
-      new_message: " ",
+      new_message: "",
       conversationId: 1,
       userId: localStorage.getItem('userId'),
       username: this.props.user.username,
@@ -21,7 +21,10 @@ console.log(this.props.user.username)
   }
   componentDidMount() {
     Axios.get(`/conversation/${this.state.conversationId}`).then(res => {
+<<<<<<< HEAD
       console.log("res.data", res.data)
+=======
+>>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
       this.setState({ conversation: res.data.conversation });
     });
 
@@ -32,9 +35,10 @@ console.log(this.props.user.username)
 
   handleSubmit = event => {
     event.preventDefault();
-    const data = this.state.new_message;
+
+    let data = this.state.new_message;
     let allMessages = this.state.conversation;
-    allMessages.push(data);
+    // allMessages.push(data); BUGGGGGGGGG
 
     this.setState({
       conversation: allMessages
@@ -46,12 +50,15 @@ console.log(this.props.user.username)
       username: this.state.username,
       
       senderName: localStorage.getItem("userFirst"),
-      senderId: localStorage.getItem("userId"),
+      sender_id: localStorage.getItem("userId"),
       conversationId: this.state.conversationId
     };
 
+<<<<<<< HEAD
     console.log("message_obj", message_obj)
 
+=======
+>>>>>>> c2d8bc2f5c05a837d1427069770ac4ff6eab965b
     socket.emit(`send message`, message_obj);
   };
 
@@ -66,16 +73,7 @@ console.log(this.props.user.username)
     this.setState({ conversation: allMessages });
   };
 
-  handleMessageClassName = message => {
-    console.log("senderId: ", message.sender_id)
-    console.log("userId: ", this.state.userId)
-    console.log(localStorage)
-    if (message.sender_id == this.state.userId) {
-      return "sent"
-    } else {
-      return "received"
-    }
-  }
+
 
   render() {
     const { message } = this.state;
@@ -83,12 +81,9 @@ console.log(this.props.user.username)
       return (
         <div>
           {this.state.conversation.map((message) => (
-          <div key={message.id}>
-            <Message 
-            className={this.handleMessageClassName(message)} 
+            <Message
             data={message}
             />
-          </div>
           ))}
           <form onSubmit={this.handleSubmit}>
             <p>
