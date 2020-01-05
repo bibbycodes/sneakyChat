@@ -5,8 +5,8 @@ process.env.NODE_ENV = "TEST"
 describe('Message', () => {
   let helper = new Helper()
   let sender = { name: "Robert", id: 1 }
-  let message = new Message(sender.id, "Hi", 1)
-
+    let message = new Message("Hi", 'Robert R', sender.id, 1)
+console.log("Message", message)
   beforeAll(async () => {
     await helper.createTableMessages()
     await helper.populateMessagesTable()
@@ -34,8 +34,10 @@ describe('Message', () => {
 
   describe('#create', () => {
     it('adds a message into the database', async () => {
+      
+      console.log("Message 2", message)
       await message.create()
-      result = await Message.find(4)
+      result = await Message.find(1)
       expect(result[0].body).toEqual("Hi")
     })
   })

@@ -60,6 +60,7 @@ app.post("/messages/", async (req, res) => {
   let message = new Message(
     parseInt(query.sender_id), // be careful with parseInt and toString() keep consistent during flow of data
     query.body,
+    query.username,
     parseInt(query.conversationId)
   );
   message.create();
