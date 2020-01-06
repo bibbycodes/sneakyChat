@@ -29,7 +29,8 @@ class LoginForm extends Component {
         if (user) {
           localStorage.setItem('isAuth', true)
           localStorage.setItem('userId', user.id)
-          localStorage.setItem('userFirst', user.first)
+          localStorage.setItem('username', user.username)
+
           this.props.setUser(user)
           this.props.authenticate()
           this.clearForm()
