@@ -34,7 +34,7 @@ describe('Message', () => {
 
   describe('#create', () => {
     it('adds a message into the database', async () => {
-      await message.create()
+      await Message.create("Hi", sender.id, 1)
       result = await Message.find(4)
       expect(result[0].body).toEqual("Hi")
     })

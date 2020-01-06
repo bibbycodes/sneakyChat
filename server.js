@@ -83,12 +83,15 @@ io.on("connection", function(socket) {
   console.log(connections);
 
   socket.on("send message", function(data) {
-    let message = new Message(
-      parseInt(data.sender_id), // camel case this
+console.log("A", data)    
+    let message = Message.create(
+      
       data.body,
+      parseInt(data.sender_id), // camel case this
       parseInt(data.conversationId)
     );
-    message.create();
+    console.log("B", message)
+
     io.sockets.emit("new message", data);
   });
 
