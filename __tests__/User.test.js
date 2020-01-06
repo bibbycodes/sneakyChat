@@ -4,7 +4,6 @@ process.env.NODE_ENV = 'TEST'
 
 describe('User', () => {
   let helper = new Helper()
-  let user = new User()
 
   beforeAll(async () => {
     await helper.createTableUsers()
@@ -50,12 +49,12 @@ describe('User', () => {
 
   describe('.create', () => {
     it('creates a new user', async () => {
-      let user = await User.create('Thomas', 'Griffith', 'tomtom@gmail.com', 'secret')
+      let user = await User.create('TGriffith','Thomas', 'Griffith', 'tomtom@gmail.com', 'secret')
       expect(user instanceof User).toBe(true)
     })
 
     it('adds a user to the database', async () => {
-      await User.create('Robert', 'Rosiji', 'rob@gmail.com', 'secret')
+      await User.create('RobertR', 'Robert', 'Rosiji', 'rob@gmail.com', 'secret')
       let user = await User.find(5)
       expect(user[0].first).toEqual('Robert')
       expect(user[0].last).toEqual('Rosiji')
@@ -64,15 +63,19 @@ describe('User', () => {
     })
 
     it('returns "user already exists" if the user already exists', async () => {
-      expect(await User.create('Robert', 'Rosiji', 'test@gmail.com', 'secret'))
+      expect(await User.create('Robert_R', 'Robert', 'Rosiji', 'test@gmail.com', 'secret'))
       .toEqual("user already exists")
     })
   })
 
   describe('.authenticate', () => {
     it('returns the user after successful authentication', async () => {
-      let user = await User.create('Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      let user = await User.create('Joe_G','Joe', 'Griffith', 'joe@gmail.com', 'testpass')
+      console.log("D", user)
+      let results = await User.authenticate('joe@gmail.com', 'tespass')
+      console.log('E', results)
       expect(await User.authenticate('joe@gmail.com', 'testpass')).toEqual(user)
+
     })
 
     it('returns "Email or Password Incorrect" if the password is incorrect', async () => {

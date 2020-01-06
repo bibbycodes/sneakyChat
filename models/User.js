@@ -1,7 +1,8 @@
 const dbConnection = require('../dbConnection')
 
 class User {
-  constructor(id, first, last) {
+  constructor(username, id, first, last) {
+    this.username = username 
     this.id = id
     this.first = first
     this.last = last
@@ -28,7 +29,7 @@ class User {
     return (!!user[0])
   }
 
-  static async create(first, last, email, password) {
+  static async create(username, first, last, email, password) {
     let exists = await this.check_exists(email)
     if (exists) {
       return "user already exists"
@@ -37,13 +38,13 @@ class User {
       await db.start()
       let result = await db.query(`
       INSERT INTO 
-      users (first, last, email, password) 
-      VALUES ('${first}', '${last}', '${email}', '${password}')
+      users (username, first, last, email, password) 
+      VALUES ('${username}', '${first}', '${last}', '${email}', '${password}')
       RETURNING *;
       `)
       let rows = result.rows
       await db.close()
-      return new User(rows[0].id, rows[0].first, rows[0].last, rows[0].email)
+      return new User(rows[0].username, rows[0].id, rows[0].first, rows[0].last)
     }
   }
 
@@ -53,11 +54,12 @@ class User {
     let result = await db.query(`
       SELECT * FROM users
       WHERE email='${email}' AND password='${password}';
-    `)
+    `)    
     let user = result.rows[0]
+    
     await db.close()
     if (user) {
-      return new User(user.id, user.first, user.last)
+      return new User(user.username, user.id, user.first, user.last)
     } else {
       return "Email or Password Incorrect"
     }
