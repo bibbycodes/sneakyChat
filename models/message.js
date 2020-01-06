@@ -16,17 +16,18 @@ class Message {
     return result.rows;
   }
 
-  static async create(body, sender_id, conversationId) {
+  static async create(body, username, sender_id, conversationId) {
     let db = new dbConnection();
     let curDate = new Date()
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
     await db.start();
+    console.log("F", body, username, sender_id, conversationId)
     let result = await db.query(
       `INSERT INTO messages 
-      (body, sender_id, created_at, conversation_id) 
-      VALUES ('${body}', '${sender_id}', '${curDate}', '${conversationId}')
+      (body, username, sender_id, created_at, conversation_id) 
+      VALUES ('${body}', '${username}', '${sender_id}', '${curDate}', '${conversationId}')
       RETURNING *;
       `
     );

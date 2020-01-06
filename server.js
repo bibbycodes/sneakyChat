@@ -9,13 +9,12 @@ const server = require("http").createServer(app);
 const io = require("socket.io").listen(server);
 const bodyParser = require("body-parser");
 
+let connections = [];
 
-let connections = []
-
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(bodyParser.json())
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+app.use(express.static(path.join(__dirname, "client/build")));
+app.use(bodyParser.json());
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
@@ -43,15 +42,15 @@ app.post("/users/register", async (req, res) => {
   }
 });
 
-
-app.post('/users/authenticate', async (req, res) => {
-  let email = req.body.email
-  let password = req.body.password
-  let user = await User.authenticate(email, password)
+app.post("/users/authenticate", async (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let user = await User.authenticate(email, password);
+  console.log("H", user)
   if (user instanceof User) {
-    res.status(200).json({user : user})
+    res.status(200).json({ user: user });
   } else {
-    res.status(401)
+    res.status(401);
   }
 });
 
@@ -83,14 +82,13 @@ io.on("connection", function(socket) {
   console.log(connections);
 
   socket.on("send message", function(data) {
-console.log("A", data)    
+    console.log("A", data);
     let message = Message.create(
-      
       data.body,
       parseInt(data.sender_id), // camel case this
       parseInt(data.conversationId)
     );
-    console.log("B", message)
+    console.log("B", message);
 
     io.sockets.emit("new message", data);
   });
