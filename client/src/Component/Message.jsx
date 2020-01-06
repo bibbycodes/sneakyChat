@@ -21,6 +21,7 @@ class Message extends Component {
   render(){
     return(
       <div className="message-bubble">
+          <p>{this.props.data.username}   </p> 
           <div className={`inner-${this.state.className}`}>
             <p className={`text-${this.state.className}`}> {this.props.data.body} </p>
           </div>

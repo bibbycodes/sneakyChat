@@ -42,10 +42,12 @@ class Conversation extends Component {
 
     let message_obj = {
       body: data,
+      username: localStorage.getItem("username"),
       senderName: localStorage.getItem("userFirst"),
       sender_id: localStorage.getItem("userId"),
       conversationId: this.state.conversationId
     };
+    console.log("l",localStorage)
 
     socket.emit(`send message`, message_obj);
     this.clearForm()
@@ -60,7 +62,9 @@ class Conversation extends Component {
     let allMessages = this.state.conversation;
     allMessages.push(message);
     this.setState({ conversation: allMessages });
+  console.log("I", message )
   };
+
 
 
 
