@@ -33,7 +33,7 @@ app.post("/users/register", async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let user = await User.create(firstName, lastName, email, password);
+  let user = await User.create(username, firstName, lastName, email, password);
   let authenticated = await User.authenticate(email, password);
 
   if (authenticated instanceof User) {
