@@ -73,7 +73,7 @@ class Conversation extends Component {
           {this.state.conversation.map(message => (
             <Message data={message} />
           ))}
-          <form onSubmit={this.handleSubmit}>
+          <form class="Conversation" onSubmit={this.handleSubmit}>
             <p>
               <input
                 type="text"
