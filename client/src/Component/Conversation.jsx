@@ -58,6 +58,7 @@ class Conversation extends Component {
     this.setState({ new_message: event.target.value });
   };
 
+  
   handleIncomingMessage = message => {
     let allMessages = this.state.conversation;
     allMessages.push(message);
