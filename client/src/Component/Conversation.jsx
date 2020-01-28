@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import socketIOClient from "socket.io-client";
-import Message from "./Message"
+import Message from "./Message";
 const socket = socketIOClient();
 
 class Conversation extends Component {
@@ -10,7 +10,7 @@ class Conversation extends Component {
     this.state = {
       new_message: "",
       conversationId: 1,
-      userId: localStorage.getItem('userId'),
+      userId: localStorage.getItem("userId"),
       conversation: []
     };
   }
@@ -26,8 +26,8 @@ class Conversation extends Component {
   }
 
   clearForm = () => {
-    this.setState({new_message : ""})
-  }
+    this.setState({ new_message: "" });
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -47,10 +47,10 @@ class Conversation extends Component {
       sender_id: localStorage.getItem("userId"),
       conversationId: this.state.conversationId
     };
-    console.log("l",localStorage)
+    console.log("l", localStorage);
 
     socket.emit(`send message`, message_obj);
-    this.clearForm()
+    this.clearForm();
   };
 
   handleInputChange = event => {
@@ -62,21 +62,16 @@ class Conversation extends Component {
     let allMessages = this.state.conversation;
     allMessages.push(message);
     this.setState({ conversation: allMessages });
-  console.log("I", message )
+    console.log("I", message);
   };
-
-
-
 
   render() {
     const { message } = this.state;
-    if (this.props.isAuthenticated){
+    if (this.props.isAuthenticated) {
       return (
         <div>
-          {this.state.conversation.map((message) => (
-            <Message
-            data={message}
-            />
+          {this.state.conversation.map(message => (
+            <Message data={message} />
           ))}
           <form onSubmit={this.handleSubmit}>
             <p>
@@ -91,13 +86,9 @@ class Conversation extends Component {
             <button>Send Message</button>
           </form>
         </div>
-        );
+      );
     } else {
-      return(
-        <div>
-          You Must be logged in to view this page
-        </div>
-      )
+      return <div>You Must be logged in to view this page</div>;
     }
   }
 }
