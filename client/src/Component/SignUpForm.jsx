@@ -50,8 +50,10 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSignup}>
+        <form class="SignUp-Form"onSubmit={this.handleSignup}>
           <label>
+          
+          <ol>
             UserName
             <input
               type="text"
@@ -61,9 +63,11 @@ class SignUp extends Component {
               }
               value={this.state.username}
             />
+        </ol>
           </label>
 
           <label>
+        <ol>
             First Name
             <input
               type="text"
@@ -73,9 +77,11 @@ class SignUp extends Component {
               }
               value={this.state.firstName}
             />
+        </ol>
           </label>
 
           <label>
+          <ol>            
             Last Name
             <input
               type="text"
@@ -85,9 +91,12 @@ class SignUp extends Component {
               }
               value={this.state.lastName}
             />
+          </ol>
           </label>
 
           <label>
+          
+          <ol>
             Email Address
             <input
               type="text"
@@ -97,9 +106,12 @@ class SignUp extends Component {
               }
               value={this.state.email}
             />
+
+          </ol>
           </label>
 
           <label>
+
             Password
             <input
               type="text"
@@ -110,8 +122,9 @@ class SignUp extends Component {
               value={this.state.password}
             />
           </label>
-
+          <ol>
           <input type="submit" value="Sign Up" />
+          </ol>
         </form>
       </div>
     );

@@ -7,7 +7,7 @@ const Message = require("./models/message");
 const User = require("./models/User");
 const server = require("http").createServer(app);
 const io = require("socket.io").listen(server);
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");          
 
 let connections = [];
 
